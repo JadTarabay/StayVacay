@@ -1,0 +1,131 @@
+.Popular-listings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  padding-top: 100px;
+}
+
+.listing-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.listing-top h2 {
+    font-family: poppins;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #072652;
+    margin: 0;
+}
+
+.listing-top h1 {
+    font-family: poppins;
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #072652;
+    margin: 0;
+}
+
+.listing-top span {
+    color: #434343;
+}
+
+.listing-top p {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #000000;
+}
+
+.listing-bottom{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    margin-top: -50px;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-right: 30px;
+
+}
+
+.button-left{
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.button-right{
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-left:hover{
+    background: #ADCFFF;
+    border-radius: 50%;
+}
+
+.button-right:hover{
+    background: #ADCFFF;
+    border-radius: 50%;
+}
+
+.nav-card-icon{
+    width:50px;
+    height: 50px;
+    color: #072652;
+    border-radius: 50%;
+}
+
+.properties-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.properties {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  margin:20px;
+}
+
+.property-card-wrapper {
+  flex: 0 0 49%; /* 2 cards visible at a time => 50% each */
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+.property-card-wrapper:nth-child(2) {
+  margin-right: 100px; 
+}
