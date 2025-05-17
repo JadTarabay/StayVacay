@@ -1,13 +1,12 @@
 .Navbar{
     background-color: transparent;
-    position: absolute;
+    position:absolute;
     width: 98vw;
     height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    background-color: transparent;
     margin: 0px 10px;
 }
 

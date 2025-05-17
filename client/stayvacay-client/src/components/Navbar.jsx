@@ -1,10 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {  HashLink} from 'react-router-hash-link';
 import { FaWhatsapp } from "react-icons/fa";
 import Logo from '../assets/logo.png';
 import './CSS/Navbar.css';
+import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
+
+  const isActive = (hash) => location.hash === hash;
+
   return (
     <nav className="Navbar">
       {/* Logo */}
@@ -16,29 +21,29 @@ const Navbar = () => {
       <div className="links">
         <ul className="nav-links">
           <li>
-            <NavLink to="/" end className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            <HashLink smooth to="/#hero" className={`nav-link ${isActive("#hero") ? "active" : ""}`}>
               Home
-            </NavLink>
+            </HashLink>
           </li>
           <li>
-            <NavLink to="/stays" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            <HashLink smooth to="/#stays" className={`nav-link ${isActive("#stays") ? "active" : ""}`}>
               Stays
-            </NavLink>
+            </HashLink>
           </li>
           <li>
-            <NavLink to="/services" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            <HashLink smooth to="/#services" className={`nav-link ${isActive("#services") ? "active" : ""}`}>
               Services
-            </NavLink>
+            </HashLink>
           </li>
           <li>
-            <NavLink to="/about" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            <HashLink smooth to="/#about" className={`nav-link ${isActive("#about") ? "active" : ""}`}>
               About
-            </NavLink>
+            </HashLink>
           </li>
           <li>
-            <NavLink to="/review" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            <HashLink smooth to="/#review" className={`nav-link ${isActive("#review") ? "active" : ""}`}>
               Review
-            </NavLink>
+            </HashLink>
           </li>
         </ul>
       </div>
