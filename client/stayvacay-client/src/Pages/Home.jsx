@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import PopularListings from '../components/PopularListings';
 import Services from '../components/Services';
 import AboutUs from '../components/AboutUs';
+import Testimonials from '../components/Testimonials';
 
 const Home= () =>  {
   return (
@@ -22,7 +23,7 @@ const Home= () =>  {
         <AboutUs />
       </div>
       <div id="review">
-        {/* <Testimonials /> */}
+        <Testimonials />
       </div>
     </div>
   )
