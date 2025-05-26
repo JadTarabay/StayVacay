@@ -1,0 +1,182 @@
+.aboutus{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 100px 20px 0px 20px;
+    height: 100vh;
+}
+
+.aboutus-top {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 10px;
+    width: 100%;
+    margin-left: 45px;
+}
+
+.aboutus-top-content {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.aboutus-top h2 {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0%;
+    color: #072652;
+    margin: 0;  
+}
+
+.aboutus-top-content h1 {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 45px;
+    letter-spacing: 0%;
+    margin: 0;
+    color: #434343;
+}
+
+.aboutus-top-content span {
+    color: #072652;
+}
+
+.aboutus-top-content p {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0%;
+    margin: 0;
+    color: #BBBBBB;
+}
+
+.aboutus-top-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.aboutus-top-buttons button {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0%;
+    color: #072652;
+    background: #ffffff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid #072652;
+    cursor: pointer;
+}
+
+.aboutus-top-buttons button.active {
+    background: #072652;
+    color: #ffffff;
+}
+
+.aboutus-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.aboutus-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 90%;
+  height: 250px;
+  border-radius: 50px;
+  overflow: hidden; 
+  color: white; 
+}
+
+.aboutus-content-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50px;
+  background: linear-gradient(180deg, rgba(7, 38, 82, 0.5) 0%, #072652 100%);
+  z-index: 0;
+}
+
+.aboutus-content h1 {
+    width: 50%;
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 35px;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.aboutus-content p {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.number {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.number h2 {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.number button {
+    background: #ffffff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+
+.aboutus-content h1,
+.aboutus-content p,
+.aboutus-content .number {
+  position: relative; 
+  z-index: 1;
+}

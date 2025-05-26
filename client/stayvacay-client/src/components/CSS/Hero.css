@@ -1,18 +1,18 @@
 .Hero{
     margin: 10px;
     padding-top: 100px;
-    height: 110vh;
     background-size: cover;
     background-position: center;
     border-radius: 40px;
+    height: 120vh;
 }
 
 .gradient{
     background: linear-gradient(180deg, rgba(173, 207, 255, 0) 0%, #072652 100%);
     position: absolute;
     width: 98.5%;
-    height: 60%;
-    bottom: -200px ;
+    height: 100%;
+    bottom: -260px ;
     left: 0 ;
     border-bottom-right-radius: 40px;
     border-bottom-left-radius: 40px;
@@ -257,6 +257,7 @@
     width: 50%;
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 30px;
 }
 
 .messages{
