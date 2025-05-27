@@ -5,6 +5,7 @@ import PopularListings from '../components/PopularListings';
 import Services from '../components/Services';
 import AboutUs from '../components/AboutUs';
 import Testimonials from '../components/Testimonials';
+import Footer from '../components/Footer';
 
 const Home= () =>  {
   return (
@@ -24,6 +25,9 @@ const Home= () =>  {
       </div>
       <div id="review">
         <Testimonials />
+      </div>
+      <div id="footer">
+        <Footer />
       </div>
     </div>
   )

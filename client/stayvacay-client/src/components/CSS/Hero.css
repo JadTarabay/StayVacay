@@ -196,12 +196,12 @@
     flex-direction: column;
     gap: 5px;
     width: 51%;
-    height: 90%;
+    height: 100%;
     background-size: cover;
     background-position: center;
     margin-right: 10px;
     border-radius: 50px;
-    margin-bottom: 10px;
+    margin-top: 30px;
 }
 
  

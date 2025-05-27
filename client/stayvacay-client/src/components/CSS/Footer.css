@@ -1,0 +1,96 @@
+.footer{
+    background: #072652;
+    height: 200px;
+    position: relative;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    margin: 10px;
+}
+
+.footer-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    gap: 20px;
+}
+
+.footer-top h1 {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: -0.3px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.footer-top button {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 100%;
+    letter-spacing: -0.23px;
+    color: #072652;
+    background: #ADCFFF;
+    border: none;
+    border-radius: 40px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.footer hr{
+    width: 90%;
+    height: 1px;
+    background: #FFFFFF;
+    margin: 20px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.fb-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.fb-left p{
+    font-family: Poppins;
+    font-weight: 400 !important;
+    font-size: 15px !important; 
+    letter-spacing: -0.2px;
+    color: #FFFFFF !important;
+    margin: 0 !important;
+}
+
+.fb-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.footer p{
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: -0.2px;
+    color: #ADCFFF;
+    margin: 0;
+    margin-top: 10px;
+}
