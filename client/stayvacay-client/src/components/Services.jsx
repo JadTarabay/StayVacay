@@ -19,7 +19,7 @@ const Services = () => {
         <div className="sb-top">
             <div className="service1">
                 <img src={S1} alt="" />
-                <h3>Home Staging</h3>
+                <h3>Interior Design</h3>
             </div>
              <div className="service">
                 <img src={S2} alt="" />
@@ -31,7 +31,7 @@ const Services = () => {
             </div>
              <div className="service">
                 <img src={S4} alt="" />
-                <h3> Relocation Support</h3>
+                <h3> 24 hr. Concierge</h3>
             </div>
         </div>
         <div className="sb-bottom">

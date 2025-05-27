@@ -1,23 +1,37 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
+import express from 'express';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import authRoutes from './routes/auth.js';
+import propertyRoutes from './routes/propertyRoutes.js';
+import analyticsRoutes from './routes/analyticsRoutes.js';
+import visitMiddleware from './middleware/trackVisit.js';
+import path from 'path';
+import cors from 'cors';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config();
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(visitMiddleware);
 
-const PORT = process.env.PORT || 5000;
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/properties', propertyRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log("MongoDB connected"))
-.catch(err => console.log(err));
-
-app.get("/", (req, res) => {
-  res.send("StayVacay API is running.");
-});
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Connect to DB and start server
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(process.env.PORT || 5000, () => {
+      console.log(`Server running on port ${process.env.PORT || 5000}`);
+      console.log('Connected to MongoDB');
+    });
+  })
+  .catch((err) => console.log('DB connection error:', err));

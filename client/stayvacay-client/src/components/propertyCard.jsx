@@ -34,10 +34,6 @@ const PropertyCard = ({
           </div>
           <hr />
           <div className="card-bottom">
-            <div className="owner">
-              <img src={ownerPicture} alt="owner" />
-              <h1>{ownerName}</h1>
-            </div>
             <a
                 href="https://wa.me/+971569192299"
                 target="_blank"
