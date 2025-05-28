@@ -1,0 +1,12 @@
+.dashboard-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    justify-content: flex-end;
+}
+
+.dashboard-container main {
+    width: 77%;
+    overflow-y: auto;
+}

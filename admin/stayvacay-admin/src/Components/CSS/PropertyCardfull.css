@@ -1,0 +1,60 @@
+.property-card-full {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.left-info {
+  flex: 3;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.property-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.location-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.location-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.details-row {
+  display: flex;
+  gap: 15px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.right-image {
+  flex: 1;
+  height: 100%;
+}
+
+.property-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

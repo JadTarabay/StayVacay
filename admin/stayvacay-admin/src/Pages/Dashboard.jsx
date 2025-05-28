@@ -6,12 +6,13 @@ import AddProperty from '../Components/AddProperty';
 import RemoveProperty from '../Components/RemoveProperty';
 import UpdateProperty from '../Components/UpdateProperty';
 import Analytics from '../Components/Analytics';
+import "./Dashboard.css";
 
 const Dashboard = () => {
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div className="dashboard-container" >
       <Sidebar />
-      <main style={{ flexGrow: 1, padding: '20px' }}>
+      <main>
         <Routes>
           <Route path="/" element={<Navigate to="view-properties" replace />} />
           <Route path="view-properties" element={<ViewProperties />} />

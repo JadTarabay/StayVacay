@@ -1,0 +1,93 @@
+.property-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.property-wrapper {
+  position: relative;
+}
+
+.edit-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #007bff;
+  border: none;
+  color: white;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.edit-button:hover {
+  background: #0056b3;
+}
+
+.edit-form {
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+
+.edit-form-row{
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.edit-form-row input {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #434343;
+  border-radius: 40px;
+  font-size: 16px;
+  color: #072652;
+}
+
+.edit-form-row input:focus {
+  outline: none;
+  border-color: #072652;
+}
+
+.cancel-button {
+  margin-left: 10px;
+  background: #999;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dropzone {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.preview-list {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.preview-item {
+  background: #f0f0f0;
+  padding: 6px 10px;
+  border-radius: 5px;
+}

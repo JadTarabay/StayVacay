@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import Property from '../models/property.js';
 
 export const getAllProperties = async (req, res) => {
@@ -16,15 +18,45 @@ export const addProperty = async (req, res) => {
 export const updateProperty = async (req, res) => {
   const { id } = req.params;
   const updatedData = req.body;
-  if (req.files) updatedData.images = req.files.map(file => file.path);
+  if (req.files && req.files.length > 0) {
+    updatedData.images = req.files.map(file => file.path);
+  } else {
+    delete updatedData.images; 
+  }
   const updated = await Property.findByIdAndUpdate(id, updatedData, { new: true });
   res.json(updated);
 };
 
 export const deleteProperty = async (req, res) => {
   const { id } = req.params;
-  await Property.findByIdAndUpdate(id, { isDeleted: true });
-  res.json({ message: 'Property soft deleted' });
+
+  try {
+    const property = await Property.findById(id);
+    if (!property) {
+      return res.status(404).json({ message: 'Property not found' });
+    }
+
+    // Delete images from disk
+    if (property.images && property.images.length > 0) {
+      property.images.forEach(imagePath => {
+        const fullPath = path.resolve(imagePath); // Ensure absolute path
+        fs.unlink(fullPath, err => {
+          if (err) {
+            console.error(`Failed to delete file: ${fullPath}`, err);
+          }
+        });
+      });
+    }
+
+    // Soft delete property
+    await Property.findByIdAndUpdate(id, { isDeleted: true });
+
+    res.json({ message: 'Property soft deleted and images removed from server' });
+
+  } catch (err) {
+    console.error('Error deleting property:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
 };
 
 export const getPropertyById = async (req, res) => {

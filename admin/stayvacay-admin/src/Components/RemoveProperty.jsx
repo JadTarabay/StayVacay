@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import api from '../utils/api';
 import { toast } from 'react-toastify';
+import PropertyCardFull from './PropertyCardfull';
+import './CSS/RemoveProperty.css';
 
 const RemoveProperty = () => {
   const [properties, setProperties] = useState([]);
@@ -29,15 +31,30 @@ const RemoveProperty = () => {
   return (
     <div className="page-container">
       <h2>Remove Properties</h2>
-      {properties.length === 0 ? <p>No properties found.</p> : (
-        <ul>
+      {properties.length === 0 ? (
+        <p>No properties found.</p>
+      ) : (
+        <div className="property-list">
           {properties.map(prop => (
-            <li key={prop._id}>
-              {prop.name} - {prop.location} 
-              <button onClick={() => handleDelete(prop._id)}>X</button>
-            </li>
+            <div className="property-wrapper" key={prop._id}>
+              <PropertyCardFull
+                price={prop.price}
+                name={prop.name}
+                location={prop.location}
+                bedrooms={prop.bedrooms}
+                bathrooms={prop.bathrooms}
+                size={prop.size}
+                propertyImages={prop.images}
+              />
+              <button
+                className="delete-button"
+                onClick={() => handleDelete(prop._id)}
+              >
+                ✕
+              </button>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

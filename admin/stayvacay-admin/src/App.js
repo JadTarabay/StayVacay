@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './Pages/Dashboard';
 import Login from './Components/Login';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Dummy auth function for example (replace with your real auth logic)
 const isAuthenticated = () => {
@@ -33,7 +35,9 @@ function App() {
         {/* Redirect any other route to login */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
+      <ToastContainer />
     </Router>
+    
   );
 }
 
