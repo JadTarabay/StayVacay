@@ -58,6 +58,9 @@ const PopularListings = () => {
                 </div>
               ))}
             </div>
+            <div className="view-properties-button">
+              <button>View More</button>
+            </div>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import upload from '../middleware/upload.js';
 
 const router = express.Router();
 
+router.get('/public', getAllProperties); // Public route to get all properties
 router.get('/', protect, getAllProperties);
 router.post('/', protect, upload.array('images'), addProperty);
 router.put('/:id', protect, upload.array('images'), updateProperty);
