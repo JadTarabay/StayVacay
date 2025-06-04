@@ -67,6 +67,7 @@ const Properties = () => {
           filteredProperties.map((property) => (
             <PropertyCard
               key={property._id}
+              _id={property._id}
               price={property.price}
               name={property.name}
               location={property.location}

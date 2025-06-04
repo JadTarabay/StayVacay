@@ -40,7 +40,7 @@ const UpdateProperty = () => {
   try {
     const formData = new FormData();
 
-    ['name', 'location', 'price', 'bedrooms', 'bathrooms', 'size'].forEach(key =>
+    ['name', 'location', 'price', 'bedrooms', 'bathrooms', 'size', 'description'].forEach(key =>
       formData.append(key, data[key])
     );
 
@@ -113,6 +113,7 @@ const UpdateProperty = () => {
           <div className='edit-form-row'><label>Bedrooms</label><input type="number" {...register('bedrooms')} required /></div>
           <div className='edit-form-row'><label>Bathrooms</label><input type="number" {...register('bathrooms')} required /></div>
           <div className='edit-form-row'><label>Size (m²)</label><input type="number" {...register('size')} required /></div>
+          <div className='edit-form-row'><label>Description</label><textarea {...register('description')} required /></div>
           <div className="dropzone" {...getRootProps()}>
             <input {...getInputProps()} />
             <p>Drag 'n' drop images here, or click to select files</p>

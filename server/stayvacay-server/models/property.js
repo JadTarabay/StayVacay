@@ -8,6 +8,7 @@ const propertySchema = new mongoose.Schema({
     bedrooms: Number,
     bathrooms: Number,
     size: Number,
+    description: String,
     images: [String],
     views: { type: Number, default: 0 },
     isDeleted: { type: Boolean, default: false }

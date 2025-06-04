@@ -3,21 +3,26 @@ import locationIcon from "../assets/propertyCard/location.png";
 import { IoBedOutline } from "react-icons/io5";
 import { MdBathtub, MdOutlineWidthWide } from "react-icons/md";
 import './CSS/PropertyCard.css';
+import { useNavigate } from 'react-router-dom';
 
 const PropertyCard = ({
+  _id,
   price,
   name,
   location,
   bedrooms,
   bathrooms,
   size,
-  ownerName,
-  ownerPicture,
   propertyImages
 }) => {
+   const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/property/${_id}`);
+  };
+
   return (
     
-      <div className='property-card'>
+      <div className='property-card' onClick={handleClick}>
         <div className="card-left">
           <div className="card-top">
             <h1>${price}</h1>

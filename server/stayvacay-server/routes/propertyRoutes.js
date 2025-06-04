@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllProperties, addProperty, updateProperty, deleteProperty } from '../controllers/PropertyController.js';
+import { getAllProperties, addProperty, updateProperty, deleteProperty, getPropertyById } from '../controllers/PropertyController.js';
 import { protect } from '../middleware/authMiddleware.js';
 import upload from '../middleware/upload.js';
 
@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get('/public', getAllProperties); // Public route to get all properties
 router.get('/', protect, getAllProperties);
+router.get('/public/:id', getPropertyById);
 router.post('/', protect, upload.array('images'), addProperty);
 router.put('/:id', protect, upload.array('images'), updateProperty);
 router.delete('/:id', protect, deleteProperty);

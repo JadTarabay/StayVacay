@@ -53,8 +53,17 @@ const AddProperty = () => {
         <div className="form-row">
           <input type="number" {...register('bedrooms')} placeholder="Number of Beds" required />
           <input type="number" {...register('bathrooms')} placeholder="Number of Baths" required />
-          <input type="number" {...register('size')} placeholder="Dimensions (m²)" required />
+          <input type="number" {...register('size')} placeholder="Dimensions (m²)" required />  
         </div>
+        <div className="text-area">
+          <textarea
+            {...register('description')}
+            placeholder="Write a short description about the property"
+            rows={4}
+            className="property-description"
+          />
+        </div>
+        
 
         <div className="form-row-bottom">
           <div {...getRootProps({ className: 'dropzone' })}>

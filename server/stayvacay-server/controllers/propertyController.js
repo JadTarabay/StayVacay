@@ -8,9 +8,9 @@ export const getAllProperties = async (req, res) => {
 };
 
 export const addProperty = async (req, res) => {
-  const { name, location, price, bedrooms, bathrooms, size } = req.body;
+  const { name, location, price, bedrooms, bathrooms, size, description } = req.body;
   const imagePaths = req.files?.map(file => file.path) || [];
-  const newProperty = new Property({ name, location, price, bedrooms, bathrooms, size, images: imagePaths });
+  const newProperty = new Property({ name, location, price, bedrooms, bathrooms, size, description, images: imagePaths  });
   await newProperty.save();
   res.status(201).json(newProperty);
 };
@@ -25,6 +25,27 @@ export const updateProperty = async (req, res) => {
   }
   const updated = await Property.findByIdAndUpdate(id, updatedData, { new: true });
   res.json(updated);
+};
+
+export const getPropertyById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const property = await Property.findById(id);
+
+    if (!property || property.isDeleted) {
+      return res.status(404).json({ message: 'Property not found' });
+    }
+
+    // Increment views
+    property.views = (property.views || 0) + 1;
+    await property.save();
+
+    res.json(property);
+  } catch (err) {
+    console.error('Error fetching property by ID:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
 };
 
 export const deleteProperty = async (req, res) => {
@@ -59,13 +80,3 @@ export const deleteProperty = async (req, res) => {
   }
 };
 
-export const getPropertyById = async (req, res) => {
-  const { id } = req.params;
-  const property = await Property.findById(id);
-  if (!property || property.isDeleted) {
-    return res.status(404).json({ message: 'Property not found' });
-  }
-  property.views += 1; // Increment views
-  await property.save();
-  res.json(property);
-};
