@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropertyCard from './propertyCard';
 import properties from '../data/properties';
 import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci"; 
+import { useNavigate } from 'react-router-dom';
 import './CSS/PopularListings.css';
 import G1 from '../assets/images/g1.png';
 import G2 from '../assets/images/g2.png';
@@ -25,6 +26,12 @@ const PopularListings = () => {
     if (currentIndex > 0) {
       setCurrentIndex(prev => prev - 1);
     }
+  };
+
+  const navigate = useNavigate(); 
+
+  const goToProperties = () => {
+    navigate('/properties');  // <- navigate to /properties
   };
 
   return (
@@ -59,7 +66,7 @@ const PopularListings = () => {
               ))}
             </div>
             <div className="view-properties-button">
-              <button>View More</button>
+              <button onClick={goToProperties}>View More</button>
             </div>
           </div>
         </div>

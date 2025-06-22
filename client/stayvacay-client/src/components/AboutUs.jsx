@@ -4,6 +4,24 @@ import ANext from '../assets/Aboutus/arrow-next.png';
 import ABack from '../assets/Aboutus/arrow-prev.png';
 import Property3 from '../assets/services/property3.jpg';
 
+const teamMembers = [
+  {
+    name: "Sarah Johnson",
+    position: "Lead Property Manager",
+    image: "https://randomuser.me/api/portraits/women/44.jpg" // Replace with your actual image paths
+  },
+  {
+    name: "James Smith",
+    position: "Marketing Specialist",
+    image: "https://randomuser.me/api/portraits/men/45.jpg"
+  },
+  {
+    name: "Emily Davis",
+    position: "Customer Experience Lead",
+    image: "https://randomuser.me/api/portraits/women/46.jpg"
+  }
+];
+
 const sections = [
   {
     title: "Celebrating Excellence: Unveiling Our Identity",
@@ -16,9 +34,9 @@ const sections = [
     label: "Sale",
   },
   {
-    title: "Our Trusted Partners",
-    description: "We collaborate with reputable partners to ensure a seamless experience for our clients.",
-    label: "Partners",
+    title: "Meet Our Team of Experts",
+    description: "",
+    label: "Team",
   }
 ];
 
@@ -70,7 +88,23 @@ const AboutUs = () => {
         <div className="aboutus-content" style={{ backgroundImage:`url(${Property3})`}}>
           <div className="aboutus-content-gradient"></div>
           <h1>{sections[currentSection].title}</h1>
-          <p>{sections[currentSection].description}</p>
+          {currentSection === 2 ? (
+            <div className="team-members-container" style={{display: 'flex', justifyContent: 'center', gap: '10rem', zIndex: 2, width: '100%'}}>
+              {teamMembers.map((member, index) => (
+                <div key={index} className="team-member" style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                  <img 
+                    src={member.image} 
+                    alt={member.name} 
+                    style={{width: '180px', height: '180px', borderRadius: '50%', objectFit: 'cover', marginBottom: '0.5rem'}}
+                  />
+                  <h3 style={{margin: 0}}>{member.name}</h3>
+                  <p style={{margin: 0, color: '#ccc'}}>{member.position}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>{sections[currentSection].description}</p>
+          )}
           <div className="number">
             {currentSection > 0 ? (
               <button onClick={goToPrevious}><img src={ABack} alt="Previous" /></button>
