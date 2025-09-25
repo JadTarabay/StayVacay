@@ -35,7 +35,7 @@ const PropertyCard = ({
           <div className="specifications">
             <div className="specification"><IoBedOutline className='card-icon' /><p>{bedrooms}</p></div>
             <div className="specification"><MdBathtub className='card-icon' /><p>{bathrooms}</p></div>
-            <div className="specification"><MdOutlineWidthWide className='card-icon' /><p>{size} m²</p></div>
+            <div className="specification"><MdOutlineWidthWide className='card-icon' /><p>{size} sqft</p></div>
           </div>
           <hr />
           <div className="card-bottom">
@@ -50,7 +50,7 @@ const PropertyCard = ({
           </div>
         </div>
         <div className="card-right">
-          <img src={propertyImages[0]} alt="Property" />
+          <img src={`${process.env.REACT_APP_API_BASE_URL}/${propertyImages[0]}`}  alt="Property" />
         </div>
       </div>
   );
