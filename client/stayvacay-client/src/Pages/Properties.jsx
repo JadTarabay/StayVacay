@@ -28,7 +28,7 @@ const Properties = () => {
       }
     };
     fetchProperties();
-  }, []);
+  }, );
 
   const handleSearch = () => {
     const filtered = properties.filter((prop) => {

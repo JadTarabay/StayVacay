@@ -12,11 +12,12 @@ const Property = () => {
   const [showFullView, setShowFullView] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
   const { id } = useParams();
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/properties/public/${id}`);
+        const res = await fetch(`${API_BASE_URL}/api/properties/public/${id}`);
         const data = await res.json();
         setProperty(data);
       } catch (err) {
