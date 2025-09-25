@@ -14,7 +14,7 @@ const Properties = () => {
   const [location, setLocation] = useState('');
   const [beds, setBeds] = useState('');
   const [baths, setBaths] = useState('');
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
  const fetchProperties = async () => {
       try {
