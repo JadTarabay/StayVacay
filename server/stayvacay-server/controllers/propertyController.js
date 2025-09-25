@@ -9,8 +9,23 @@ export const getAllProperties = async (req, res) => {
 
 export const addProperty = async (req, res) => {
   const { name, location, price, bedrooms, bathrooms, size, description } = req.body;
-  const imagePaths = req.files?.map(file => file.path) || [];
-  const newProperty = new Property({ name, location, price, bedrooms, bathrooms, size, description, images: imagePaths  });
+
+  const imagePaths = req.files?.map(file => {
+    const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'; 
+    return `${baseUrl}/uploads/${path.basename(file.path)}`;
+  }) || [];
+
+  const newProperty = new Property({
+    name,
+    location,
+    price,
+    bedrooms,
+    bathrooms,
+    size,
+    description,
+    images: imagePaths
+  });
+
   await newProperty.save();
   res.status(201).json(newProperty);
 };
