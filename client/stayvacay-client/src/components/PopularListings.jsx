@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import PropertyCard from './propertyCard';
 import properties from '../data/properties';
 import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci"; 
@@ -8,11 +8,25 @@ import G1 from '../assets/images/g1.png';
 import G2 from '../assets/images/g2.png';
 import G3 from '../assets/images/g3.png';
 import G4 from '../assets/images/g4.png';
-import OArrow from '../assets/oArrow.png';
 
 const PopularListings = () => {
-  const visibleCount = 2;
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(getInitialVisibleCount());
+  const [currentIndex, setCurrentIndex] = useState(0);// your property array here
+
+  function getInitialVisibleCount() {
+    return window.innerWidth < 768 ? 1 : 2;
+  }
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newCount = window.innerWidth < 768 ? 1 : 2;
+      setVisibleCount(newCount);
+      setCurrentIndex(0); // optional: reset position on resize
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const maxIndex = Math.ceil(properties.length / visibleCount) - 1;
 
@@ -28,10 +42,15 @@ const PopularListings = () => {
     }
   };
 
+  const visibleProperties = properties.slice(
+    currentIndex * visibleCount,
+    (currentIndex + 1) * visibleCount
+  );
+
   const navigate = useNavigate(); 
 
   const goToProperties = () => {
-    navigate('/properties');  // <- navigate to /properties
+    navigate('/properties');
   };
 
   return (
@@ -47,19 +66,17 @@ const PopularListings = () => {
 
         <div className="listing-bottom">
           <div className="nav-buttons">
-            <button className='button-left' onClick={handlePrev}><CiCircleChevLeft className='nav-card-icon' /></button>
-            <button className='button-right' onClick={handleNext}><CiCircleChevRight className='nav-card-icon' /></button>
+            <button className='button-left' onClick={handlePrev} disabled={currentIndex === 0}>
+              <CiCircleChevLeft className='nav-card-icon' />
+            </button>
+            <button className='button-right' onClick={handleNext} disabled={currentIndex === maxIndex}>
+              <CiCircleChevRight className='nav-card-icon' />
+            </button>
           </div>
 
           <div className="properties-wrapper">
-            <div
-              className="properties"
-              style={{
-                transform: `translateX(-${currentIndex * (220 / visibleCount)}%)`,
-                transition: 'transform 0.5s ease-in-out'
-              }}
-            >
-              {properties.map((property, index) => (
+            <div className="properties" >
+              {visibleProperties.map((property, index) => (
                 <div className="property-card-wrapper" key={index}>
                   <PropertyCard {...property} />
                 </div>
@@ -78,32 +95,7 @@ const PopularListings = () => {
         </div>
         <div className="pg-down">
           <div className="pg-left" style={{ backgroundImage:`url(${G1})`}}>
-              <div className="left-details">
-                <div className="ld-left">
-                  <h1>$2,100,000</h1>
-                  <h2>Dubai</h2>
-                  <h2>5 Maple Lane, Dubai</h2>
-                </div>
-                <div className="ld-right">
-                  <img src={OArrow} alt="OArrow" />
-                  <div className="ld-details">
-                    <div className="ld-detail">
-                      <p>1,356</p>
-                      <p>Sq, Ft.</p>
-                    </div>
-                    <vr/>
-                    <div className="ld-detail">
-                      <p>3</p>
-                      <p>Beds</p>
-                    </div>
-                    <vr/>
-                    <div className="ld-detail">
-                      <p>2</p>
-                      <p>Baths</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <img src={G1} alt="G1" />
           </div>
           <div className="pg-right">
             <div className="pg-right-top">

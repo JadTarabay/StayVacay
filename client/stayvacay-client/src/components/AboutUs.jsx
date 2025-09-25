@@ -89,13 +89,12 @@ const AboutUs = () => {
           <div className="aboutus-content-gradient"></div>
           <h1>{sections[currentSection].title}</h1>
           {currentSection === 2 ? (
-            <div className="team-members-container" style={{display: 'flex', justifyContent: 'center', gap: '10rem', zIndex: 2, width: '100%'}}>
+            <div className="team-members-container" >
               {teamMembers.map((member, index) => (
-                <div key={index} className="team-member" style={{textAlign: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <div key={index} className="team-member">
                   <img 
                     src={member.image} 
                     alt={member.name} 
-                    style={{width: '180px', height: '180px', borderRadius: '50%', objectFit: 'cover', marginBottom: '0.5rem'}}
                   />
                   <h3 style={{margin: 0}}>{member.name}</h3>
                   <p style={{margin: 0, color: '#ccc'}}>{member.position}</p>

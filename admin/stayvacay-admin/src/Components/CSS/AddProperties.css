@@ -117,3 +117,43 @@
     background-color: #ADCFFF;
     color: #072652;
 }
+@media (max-width: 768px) {
+  .page-container {
+    margin-left: 0;
+    width: 95%;
+    padding: 20px 10px;
+  }
+
+  .page-container h2 {
+    font-size: 36px;
+    text-align: center;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .form-row input {
+    width: 100%;
+  }
+
+  .text-area {
+    width: 100%;
+    padding: 0 5px;
+  }
+
+  .dropzone {
+    width: 100%;
+    height: auto;
+    min-height: 150px;
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  .form-row-bottom button {
+    width: 100%;
+    padding: 15px;
+  }
+}

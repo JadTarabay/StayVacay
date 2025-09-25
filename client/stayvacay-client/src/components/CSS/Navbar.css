@@ -129,3 +129,38 @@
     background: #25D366;
     color: #FFFFFF;
 }
+
+@media (max-width: 768px) {
+  .Navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
+    margin-bottom: 100px;
+    position: relative;
+    background: gray;
+    width: 100%;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+  }
+
+  .links,
+  .nav-links,
+  .contact-button {
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    width: 90%;
+    background: none;
+  }
+
+  .nav-link {
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .contact {
+    padding-right: 0;
+    margin-top: 10px;
+  }
+}

@@ -7,9 +7,11 @@ import AboutUs from '../components/AboutUs';
 import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 
+import './CSS/Home.css';
+
 const Home= () =>  {
   return (
-    <div className="bg-white text-gray-800">
+    <div className="home">
       <Navbar />
       <div id="hero">
         <Hero />

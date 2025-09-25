@@ -175,3 +175,42 @@
     border-top-right-radius: 40px;
     object-fit: cover;
 }
+@media (max-width: 768px) {
+  .property-card {
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  .card-left,
+  .card-right {
+    width: 100%;
+    margin: 0;
+  }
+
+  .card-right img {
+    border-radius: 20px;
+    height: 200px;
+  }
+
+  .card-top h1,
+  .card-top h2 {
+    font-size: 20px;
+  }
+
+  .specifications {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .card-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .book-button {
+    width: 100%;
+  }
+}

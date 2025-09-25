@@ -26,3 +26,25 @@
 .delete-button:hover {
   background: #d9363e;
 }
+@media (max-width: 768px) {
+  .property-list {
+    gap: 10px;
+  }
+
+  .delete-button {
+    font-size: 14px;
+    padding: 5px 8px;
+    top: 8px;
+    right: 8px;
+  }
+}
+@media (max-width: 480px) {
+  .delete-button {
+    padding: 5px;
+    font-size: 0;
+    width: 30px;
+    height: 30px;
+    background: #ff4d4f ;
+    background-size: 16px 16px;
+  }
+}

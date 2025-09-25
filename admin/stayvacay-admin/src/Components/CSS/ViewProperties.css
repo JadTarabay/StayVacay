@@ -1,15 +1,25 @@
-.page-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    justify-content: flex-end;
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 20px;
 }
 
-.view-properties{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    width: 100%;
-    padding: 20px;
+.view-properties {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  .view-properties {
+    grid-template-columns: 1fr;
+  }
 }

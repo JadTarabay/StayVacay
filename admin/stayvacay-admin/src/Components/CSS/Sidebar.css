@@ -86,3 +86,27 @@
 .logout-button:hover {
   background: #c82333;
 }
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px; /* or 0 if you want to hide it */
+    padding: 10px 5px;
+  }
+
+  .sidebar h1,
+  .sidebar h2 {
+    font-size: 0; /* hide titles */
+    margin: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .sidebar-nav ul li {
+    padding: 10px 5px;
+  }
+
+  .sidebar-nav a {
+    font-size: 0; /* hide link text */
+  }
+
+  /* Optionally show icons instead of text if you add them */
+}

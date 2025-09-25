@@ -3,8 +3,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 100px 20px 0px 20px;
+    padding-left: 20px;
     height: 120vh;
+    width: 100%;
 }
 
 .aboutus-top {
@@ -141,6 +142,36 @@
     margin: 0;
 }
 
+.team-members-container{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    z-index: 3;
+}
+
+.team-member {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-member img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
 .number {
     display: flex;
     flex-direction: row;
@@ -179,4 +210,70 @@
 .aboutus-content .number {
   position: relative; 
   z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .aboutus {
+    height: auto; 
+    padding-left: 10px;
+    width: 98%;
+  }
+
+  .aboutus-top {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .aboutus-top-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .aboutus-top-content h1 {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .aboutus-bottom{
+    width: 100%;
+  }
+
+  .aboutus-content {
+    height: 350px;
+    width: 80%;
+    gap:0px;
+  }
+
+  .aboutus-content h1 {
+    font-size: 24px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .aboutus-content p {
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .team-members-container{
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .team-member img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.aboutus-top-buttons button:hover {
+  background: #072652;
+  color: #fff;
+}
+
+.aboutus-top-buttons button:focus {
+  outline: 2px solid #072652;
+  outline-offset: 2px;
 }

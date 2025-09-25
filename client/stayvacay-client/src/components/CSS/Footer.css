@@ -2,7 +2,8 @@
     background: #072652;
     height: 200px;
     position: relative;
-    bottom: 0;
+    width: 100%;
+    z-index: 1000;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -93,4 +94,31 @@
     color: #ADCFFF;
     margin: 0;
     margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    height: auto;
+    width:95%;
+  }
+  .footer-top, .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .footer-top h1 {
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .footer-top button {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 0;
+  }
+  
+  .fb-left, .fb-right {
+    justify-content: center;
+    gap: 15px;
+  }
 }

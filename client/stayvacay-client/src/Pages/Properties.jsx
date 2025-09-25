@@ -14,11 +14,11 @@ const Properties = () => {
   const [location, setLocation] = useState('');
   const [beds, setBeds] = useState('');
   const [baths, setBaths] = useState('');
-
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
   useEffect(() => {
  const fetchProperties = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/properties/public');
+        const res = await fetch(`${API_BASE_URL}/api/properties/public`);
         if (!res.ok) throw new Error('Failed to fetch properties');
         const data = await res.json();
         setProperties(data);
