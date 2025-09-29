@@ -17,7 +17,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000','http://localhost:3001', 'https://stayvacay-frontend.onrender.com', 'https://stayvacay-admin.onrender.com'],
+  origin: ['http://localhost:3000','http://localhost:3001', 'https://stayvacay-forntend.onrender.com', 'https://stayvacay-admin.onrender.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
