@@ -1,34 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import Property from '../models/property.js';
-import AWS from 'aws-sdk';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
-});
-
-// Helper to delete images from S3
-const deleteImagesFromS3 = async (imageUrls) => {
-  if (!imageUrls || imageUrls.length === 0) return;
-
-  const objects = imageUrls.map(url => {
-    // extract key from full URL
-    const key = url.split(`https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/`)[1];
-    return { Key: key };
-  });
-
-  if (objects.length === 0) return;
-
-  await s3.deleteObjects({
-    Bucket: process.env.AWS_BUCKET_NAME,
-    Delete: { Objects: objects },
-  }).promise();
-};
 
 export const getAllProperties = async (req, res) => {
   const properties = await Property.find({ isDeleted: false });
@@ -36,70 +8,86 @@ export const getAllProperties = async (req, res) => {
 };
 
 export const addProperty = async (req, res) => {
-  try {
-    const { name, location, price, bedrooms, bathrooms, size, description } = req.body;
+  const { name, location, price, bedrooms, bathrooms, size, description } = req.body;
 
-    // multer-s3 gives you the full S3 URL in file.location
-    const imageUrls = req.files?.map(file => file.location) || [];
+  const imagePaths = req.files?.map(file => 
+  `${process.env.BASE_URL}/uploads/${path.basename(file.path)}`
+) || [];
 
-    const newProperty = new Property({
-      name,
-      location,
-      price,
-      bedrooms,
-      bathrooms,
-      size,
-      description,
-      images: imageUrls,
-    });
+  const newProperty = new Property({
+    name,
+    location,
+    price,
+    bedrooms,
+    bathrooms,
+    size,
+    description,
+    images: imagePaths
+  });
 
-    await newProperty.save();
-    res.status(201).json(newProperty);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
-  }
+  await newProperty.save();
+  res.status(201).json(newProperty);
 };
-
 
 export const updateProperty = async (req, res) => {
+  const { id } = req.params;
+  const updatedData = req.body;
+  if (req.files && req.files.length > 0) {
+    updatedData.images = req.files.map(file => file.path);
+  } else {
+    delete updatedData.images; 
+  }
+  const updated = await Property.findByIdAndUpdate(id, updatedData, { new: true });
+  res.json(updated);
+};
+
+export const getPropertyById = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const { id } = req.params;
-    const updates = req.body;
-
     const property = await Property.findById(id);
-    if (!property) return res.status(404).json({ message: 'Property not found' });
 
-    if (req.files && req.files.length > 0) {
-      // Delete old images from S3
-      await deleteImagesFromS3(property.images);
-
-      // Set new images
-      updates.images = req.files.map(file => file.location);
+    if (!property || property.isDeleted) {
+      return res.status(404).json({ message: 'Property not found' });
     }
 
-    const updatedProperty = await Property.findByIdAndUpdate(id, updates, { new: true });
-    res.json(updatedProperty);
+    // Increment views
+    property.views = (property.views || 0) + 1;
+    await property.save();
+
+    res.json(property);
   } catch (err) {
-    console.error('Error updating property:', err);
+    console.error('Error fetching property by ID:', err);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
-
 export const deleteProperty = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const property = await Property.findById(id);
-    if (!property) return res.status(404).json({ message: 'Property not found' });
+  const { id } = req.params;
 
-    // Delete images from S3
-    await deleteImagesFromS3(property.images);
+  try {
+    const property = await Property.findById(id);
+    if (!property) {
+      return res.status(404).json({ message: 'Property not found' });
+    }
+
+    // Delete images from disk
+    if (property.images && property.images.length > 0) {
+      property.images.forEach(imagePath => {
+        const fullPath = path.resolve(imagePath); // Ensure absolute path
+        fs.unlink(fullPath, err => {
+          if (err) {
+            console.error(`Failed to delete file: ${fullPath}`, err);
+          }
+        });
+      });
+    }
 
     // Soft delete property
     await Property.findByIdAndUpdate(id, { isDeleted: true });
 
-    res.json({ message: 'Property deleted and images removed from S3' });
+    res.json({ message: 'Property soft deleted and images removed from server' });
+
   } catch (err) {
     console.error('Error deleting property:', err);
     res.status(500).json({ message: 'Server error' });

@@ -1,25 +1,15 @@
-import AWS from 'aws-sdk';
 import multer from 'multer';
-import multerS3 from 'multer-s3';
-import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config();
-
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + file.originalname;
+    cb(null, uniqueSuffix);
+  }
 });
 
-const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: process.env.AWS_BUCKET_NAME,
-    acl: 'public-read', // allows public access to images
-    key: function (req, file, cb) {
-      cb(null, `properties/${Date.now()}-${file.originalname}`);
-    },
-  }),
-});
-
+const upload = multer({ storage });
 export default upload;
