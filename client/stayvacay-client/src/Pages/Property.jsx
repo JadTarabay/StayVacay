@@ -25,7 +25,7 @@ const Property = () => {
       }
     };
     fetchProperty();
-  }, [id]);
+  }, [id, API_BASE_URL]);
 
   const handleImageClick = (img) => {
     setCurrentImage(img);
@@ -39,17 +39,18 @@ const Property = () => {
   const remainingCount = property.images.length - 5;
 
   return (
-    
     <div className="Property-container">
       <div className="propertyc-header"><Navbar /></div>
+
+      {/* Image gallery */}
       <div className="image-gallery">
         <div className="main-image" onClick={() => handleImageClick(firstImage)}>
-          <img src={`/${firstImage}`} alt="Main" />
+          <img src={`${API_BASE_URL}/${firstImage}`} alt="Main" />
         </div>
         <div className="sub-images">
           {nextFour.map((img, idx) => (
             <div key={idx} className="sub-image" onClick={() => handleImageClick(img)}>
-              <img src={`/${img}`} alt={`Sub ${idx}`} />
+              <img src={`${API_BASE_URL}/${img}`} alt={`Sub ${idx}`} />
               {idx === 3 && remainingCount > 0 && (
                 <div className="overlay" onClick={() => handleImageClick(img)}>
                   +{remainingCount} more
@@ -59,9 +60,9 @@ const Property = () => {
           ))}
         </div>
       </div>
-      <div className="p-bottom">
 
-      
+      {/* Property details */}
+      <div className="p-bottom">
         <div className="p-left">
           <div className="pd-top">
             <h2>{property.name}</h2>
@@ -86,6 +87,7 @@ const Property = () => {
             </div>  
           </div>
         </div>
+
         <div className="d-right">
           <div className="description-top">
             <h3>Description</h3>
@@ -100,14 +102,16 @@ const Property = () => {
             >
               <button>Book Now</button>
             </a>
-           </div>
+          </div>
         </div>
       </div>
+
       <Footer />
 
+      {/* Full view modal */}
       {showFullView && (
         <div className="full-view" onClick={() => setShowFullView(false)}>
-          <img src={`/${currentImage}`} alt="Full view" />
+          <img src={`${API_BASE_URL}/${currentImage}`} alt="Full view" />
         </div>
       )}
     </div>
