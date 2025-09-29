@@ -50,7 +50,7 @@ const PropertyCard = ({
           </div>
         </div>
         <div className="card-right">
-          <img src={`${process.env.REACT_APP_API_BASE_URL}/${propertyImages[0]}`}  alt="Property" />
+          <img src={propertyImages[0]} alt="Property" />
         </div>
       </div>
   );
