@@ -43,7 +43,7 @@ const PropertyCard = ({
           </div>
         </div>
         <div className="card-right">
-          <img src={`http://localhost:5000/${propertyImages[0]}`} alt="Property" />
+          <img src={propertyImages[0]} alt="Property" />
         </div>
       </div>
   );

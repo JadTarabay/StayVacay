@@ -30,7 +30,7 @@ const PropertyCardfull = ({
       </div>
       <div className="right-image">
         <img
-          src={`http://localhost:5000/${propertyImages?.[0]}`}
+          src={propertyImages[0]}
           alt="Property"
           className="property-thumb"
         />
