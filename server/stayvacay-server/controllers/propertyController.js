@@ -31,90 +31,89 @@ const deleteImagesFromS3 = async (imageUrls) => {
 };
 
 export const getAllProperties = async (req, res) => {
-  const properties = await Property.find({ isDeleted: false });
-  res.json(properties);
+  try {
+    const properties = await Property.find();
+    res.json(properties);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
+// Get single property by ID (public)
 export const getPropertyById = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
     if (!property) {
-      return res.status(404).json({ message: 'Property not found' });
+      return res.status(404).json({ error: 'Property not found' });
     }
     res.json(property);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ error: err.message });
   }
 };
 
+// Add a new property (admin)
 export const addProperty = async (req, res) => {
   try {
-    const { name, location, price, bedrooms, bathrooms, size, description } = req.body;
+    // Save S3 URLs instead of /uploads paths
+    const images = req.files ? req.files.map(file => file.location) : [];
 
-    // multer-s3 gives you the full S3 URL in file.location
-    const imageUrls = req.files?.map(file => file.location) || [];
-
-    const newProperty = new Property({
-      name,
-      location,
-      price,
-      bedrooms,
-      bathrooms,
-      size,
-      description,
-      images: imageUrls,
+    const property = new Property({
+      name: req.body.name,
+      price: req.body.price,
+      location: req.body.location,
+      bedrooms: req.body.bedrooms,
+      bathrooms: req.body.bathrooms,
+      size: req.body.size,
+      description: req.body.description,
+      images, // <-- full S3 URLs go here
     });
 
-    await newProperty.save();
-    res.status(201).json(newProperty);
+    await property.save();
+    res.status(201).json(property);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ error: err.message });
   }
 };
 
-
+// Update a property
 export const updateProperty = async (req, res) => {
   try {
-    const { id } = req.params;
-    const updates = req.body;
-
-    const property = await Property.findById(id);
-    if (!property) return res.status(404).json({ message: 'Property not found' });
-
-    if (req.files && req.files.length > 0) {
-      // Delete old images from S3
-      await deleteImagesFromS3(property.images);
-
-      // Set new images
-      updates.images = req.files.map(file => file.location);
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      return res.status(404).json({ error: 'Property not found' });
     }
 
-    const updatedProperty = await Property.findByIdAndUpdate(id, updates, { new: true });
-    res.json(updatedProperty);
+    // Keep old images + add new ones if uploaded
+    const newImages = req.files ? req.files.map(file => file.location) : [];
+    if (newImages.length > 0) {
+      property.images = [...property.images, ...newImages];
+    }
+
+    property.name = req.body.name || property.name;
+    property.price = req.body.price || property.price;
+    property.location = req.body.location || property.location;
+    property.bedrooms = req.body.bedrooms || property.bedrooms;
+    property.bathrooms = req.body.bathrooms || property.bathrooms;
+    property.size = req.body.size || property.size;
+    property.description = req.body.description || property.description;
+
+    await property.save();
+    res.json(property);
   } catch (err) {
-    console.error('Error updating property:', err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ error: err.message });
   }
 };
 
-
+// Delete a property
 export const deleteProperty = async (req, res) => {
   try {
-    const { id } = req.params;
-    const property = await Property.findById(id);
-    if (!property) return res.status(404).json({ message: 'Property not found' });
-
-    // Delete images from S3
-    await deleteImagesFromS3(property.images);
-
-    // Soft delete property
-    await Property.findByIdAndUpdate(id, { isDeleted: true });
-
-    res.json({ message: 'Property deleted and images removed from S3' });
+    const property = await Property.findByIdAndDelete(req.params.id);
+    if (!property) {
+      return res.status(404).json({ error: 'Property not found' });
+    }
+    res.json({ message: 'Property deleted' });
   } catch (err) {
-    console.error('Error deleting property:', err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ error: err.message });
   }
 };
