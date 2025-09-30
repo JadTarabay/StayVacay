@@ -15,44 +15,58 @@ const PropertyCard = ({
   size,
   propertyImages
 }) => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/property/${_id}`);
   };
 
+  // Use a placeholder if no images exist
+  const firstImage =
+    propertyImages && propertyImages.length > 0
+      ? propertyImages[0]
+      : "https://via.placeholder.com/400x300?text=No+Image";
+
   return (
-    
-      <div className='property-card' onClick={handleClick}>
-        <div className="card-left">
-          <div className="card-top">
-            <h1>${price}</h1>
-            <h1>{name}</h1>
-            <div className="location">
-              <img src={locationIcon} alt="location" />
-              <p>{location}</p>
-            </div>
-          </div>
-          <div className="specifications">
-            <div className="specification"><IoBedOutline className='card-icon' /><p>{bedrooms}</p></div>
-            <div className="specification"><MdBathtub className='card-icon' /><p>{bathrooms}</p></div>
-            <div className="specification"><MdOutlineWidthWide className='card-icon' /><p>{size} sqft</p></div>
-          </div>
-          <hr />
-          <div className="card-bottom">
-            <a
-                href="https://wa.me/+971569192299"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-button"
-              >
-                <button className='book-button'>Book</button>
-              </a>
+    <div className='property-card' onClick={handleClick}>
+      <div className="card-left">
+        <div className="card-top">
+          <h1>${price}</h1>
+          <h1>{name}</h1>
+          <div className="location">
+            <img src={locationIcon} alt="location" />
+            <p>{location}</p>
           </div>
         </div>
-        <div className="card-right">
-          <img src={propertyImages[0]} alt="Property" />
+        <div className="specifications">
+          <div className="specification">
+            <IoBedOutline className='card-icon' />
+            <p>{bedrooms}</p>
+          </div>
+          <div className="specification">
+            <MdBathtub className='card-icon' />
+            <p>{bathrooms}</p>
+          </div>
+          <div className="specification">
+            <MdOutlineWidthWide className='card-icon' />
+            <p>{size} sqft</p>
+          </div>
+        </div>
+        <hr />
+        <div className="card-bottom">
+          <a
+            href="https://wa.me/+971569192299"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-button"
+          >
+            <button className='book-button'>Book</button>
+          </a>
         </div>
       </div>
+      <div className="card-right">
+        <img src={firstImage} alt="Property" />
+      </div>
+    </div>
   );
 };
 
