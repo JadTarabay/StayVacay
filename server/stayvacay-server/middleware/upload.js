@@ -17,7 +17,8 @@ const upload = multer({
     bucket: process.env.AWS_BUCKET_NAME,
     acl: 'public-read', // allows public access to images
     key: function (req, file, cb) {
-      cb(null, `properties/${Date.now()}-${file.originalname}`);
+      const safeName = file.originalname.replace(/\s+/g, "-"); // replace spaces with dashes
+      cb(null, `properties/${Date.now()}-${safeName}`);
     },
   }),
 });

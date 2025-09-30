@@ -64,7 +64,7 @@ const PropertyCard = ({
         </div>
       </div>
       <div className="card-right">
-        <img src={firstImage} alt="Property" />
+       <img src={encodeURI(propertyImages[0])} alt="Property" />
       </div>
     </div>
   );
