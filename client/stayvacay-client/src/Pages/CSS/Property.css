@@ -256,6 +256,94 @@
 }
 
 .full-view img {
+  max-width: 70%;
+  max-height: 60%;
+}
+
+/* ---------- Carousel / Full View Lightbox ---------- */
+.carousel-container {
+  position: relative;
+  max-width: 60%;
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-main-image {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 80vh;
+  border-radius: 8px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+/* Carousel navigation buttons */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255,255,255,0.6);
+  border: none;
+  font-size: 30px;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #000;
+  z-index: 10;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+  background-color: rgba(255,255,255,0.9);
+}
+
+.carousel-prev {
+  left: -60px;
+}
+
+.carousel-next {
+  right: -60px;
+}
+
+/* Thumbnails */
+.carousel-thumbnails {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 5px 0;
+  max-width: 100%;
+}
+
+.carousel-thumbnails img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s, transform 0.2s;
+}
+
+.carousel-thumbnails img:hover,
+.carousel-thumbnails img.active-thumb {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Responsive for mobile */
+@media screen and (max-width: 768px) {
+  .carousel-prev {
+    left: 5px;
+  }
+
+  .carousel-next {
+    right: 5px;
+  }
+
+  .carousel-thumbnails img {
+    width: 60px;
+    height: 45px;
+  }
 }

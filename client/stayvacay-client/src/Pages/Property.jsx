@@ -12,7 +12,7 @@ const Property = () => {
   const [showFullView, setShowFullView] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
   const { id } = useParams();
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -32,11 +32,20 @@ const Property = () => {
     setShowFullView(true);
   };
 
+  // Helper to handle full URLs and filenames
+  const getImageUrl = (img) => {
+    if (!img) return "https://via.placeholder.com/400x300?text=No+Image";
+    return /^https?:\/\//i.test(img)
+      ? img
+      : `${API_BASE_URL}/uploads/${encodeURIComponent(img.replace(/^uploads\//, ''))}`;
+  };
+
   if (!property) return <p>Loading...</p>;
 
   const firstImage = property.images[0];
   const nextFour = property.images.slice(1, 5);
-  const remainingCount = property.images.length - 5;
+  const remainingImages = property.images.slice(5);
+  const remainingCount = remainingImages.length;
 
   return (
     <div className="Property-container">
@@ -45,14 +54,17 @@ const Property = () => {
       {/* Image gallery */}
       <div className="image-gallery">
         <div className="main-image" onClick={() => handleImageClick(firstImage)}>
-          <img src={`${API_BASE_URL}/${firstImage}`} alt="Main" />
+          <img src={getImageUrl(firstImage)} alt="Main" />
         </div>
         <div className="sub-images">
           {nextFour.map((img, idx) => (
             <div key={idx} className="sub-image" onClick={() => handleImageClick(img)}>
-              <img src={`${API_BASE_URL}/${img}`} alt={`Sub ${idx}`} />
+              <img src={getImageUrl(img)} alt={`Sub ${idx}`} />
               {idx === 3 && remainingCount > 0 && (
-                <div className="overlay" onClick={() => handleImageClick(img)}>
+                <div
+                  className="overlay"
+                  onClick={() => handleImageClick(remainingImages[0])}
+                >
                   +{remainingCount} more
                 </div>
               )}
@@ -108,10 +120,50 @@ const Property = () => {
 
       <Footer />
 
-      {/* Full view modal */}
+      {/* Full view modal / Carousel */}
       {showFullView && (
         <div className="full-view" onClick={() => setShowFullView(false)}>
-          <img src={`${API_BASE_URL}/${currentImage}`} alt="Full view" />
+          <div className="carousel-container" onClick={e => e.stopPropagation()}>
+            <button
+              className="carousel-prev"
+              onClick={() => {
+                const currentIndex = property.images.indexOf(currentImage);
+                const prevIndex = (currentIndex - 1 + property.images.length) % property.images.length;
+                setCurrentImage(property.images[prevIndex]);
+              }}
+            >
+              &#10094;
+            </button>
+
+            <img
+              src={getImageUrl(currentImage)}
+              alt="Full view"
+              className="carousel-main-image"
+            />
+
+            <button
+              className="carousel-next"
+              onClick={() => {
+                const currentIndex = property.images.indexOf(currentImage);
+                const nextIndex = (currentIndex + 1) % property.images.length;
+                setCurrentImage(property.images[nextIndex]);
+              }}
+            >
+              &#10095;
+            </button>
+
+            <div className="carousel-thumbnails">
+              {property.images.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={getImageUrl(img)}
+                  alt={`Thumb ${idx}`}
+                  className={getImageUrl(img) === getImageUrl(currentImage) ? 'active-thumb' : ''}
+                  onClick={() => setCurrentImage(img)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

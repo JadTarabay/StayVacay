@@ -16,15 +16,26 @@ const PropertyCard = ({
   propertyImages
 }) => {
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+
   const handleClick = () => {
     navigate(`/property/${_id}`);
   };
 
-  // Use a placeholder if no images exist
-  const firstImage =
-    propertyImages && propertyImages.length > 0
-      ? propertyImages[0]
-      : "https://via.placeholder.com/400x300?text=No+Image";
+  // Determine image URL
+  let firstImage = propertyImages?.[0];
+
+  if (firstImage) {
+    // If it’s just a filename (no protocol), prepend API_BASE_URL
+    if (!/^https?:\/\//i.test(firstImage)) {
+      // Remove any leading "uploads/" if already present
+      firstImage = firstImage.replace(/^uploads\//, '');
+      firstImage = `${API_BASE_URL}/uploads/${encodeURIComponent(firstImage)}`;
+    }
+  } else {
+    // fallback image
+    firstImage = "https://via.placeholder.com/400x300?text=No+Image";
+  }
 
   return (
     <div className='property-card' onClick={handleClick}>
@@ -37,6 +48,7 @@ const PropertyCard = ({
             <p>{location}</p>
           </div>
         </div>
+
         <div className="specifications">
           <div className="specification">
             <IoBedOutline className='card-icon' />
@@ -51,7 +63,9 @@ const PropertyCard = ({
             <p>{size} sqft</p>
           </div>
         </div>
+
         <hr />
+
         <div className="card-bottom">
           <a
             href="https://wa.me/+971569192299"
@@ -63,8 +77,9 @@ const PropertyCard = ({
           </a>
         </div>
       </div>
+
       <div className="card-right">
-       <img src={encodeURI(propertyImages[0])} alt="Property" />
+        <img src={firstImage} alt="Property" />
       </div>
     </div>
   );
