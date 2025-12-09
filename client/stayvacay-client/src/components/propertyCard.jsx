@@ -13,29 +13,15 @@ const PropertyCard = ({
   bedrooms,
   bathrooms,
   size,
-  propertyImages
+  images
 }) => {
   const navigate = useNavigate();
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
   const handleClick = () => {
     navigate(`/property/${_id}`);
   };
-
-  // Determine image URL
-  let firstImage = propertyImages?.[0];
-
-  if (firstImage) {
-    // If it’s just a filename (no protocol), prepend API_BASE_URL
-    if (!/^https?:\/\//i.test(firstImage)) {
-      // Remove any leading "uploads/" if already present
-      firstImage = firstImage.replace(/^uploads\//, '');
-      firstImage = `${API_BASE_URL}/uploads/${encodeURIComponent(firstImage)}`;
-    }
-  } else {
-    // fallback image
-    firstImage = "https://via.placeholder.com/400x300?text=No+Image";
-  }
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+  // Simply take the first image, whatever it is
 
   return (
     <div className='property-card' onClick={handleClick}>
@@ -79,8 +65,12 @@ const PropertyCard = ({
       </div>
 
       <div className="card-right">
-        <img src={firstImage} alt="Property" />
+        {images && images.length > 0 && (
+          <img src={`${API_BASE_URL}/${images[0]}`} alt="Property" />
+        )}
       </div>
+
+
     </div>
   );
 };

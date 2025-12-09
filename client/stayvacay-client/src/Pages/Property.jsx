@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './CSS/Property.css';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { FaLocationDot } from "react-icons/fa6";
 import { IoBedOutline } from "react-icons/io5";
 import { MdBathtub, MdOutlineWidthWide } from "react-icons/md";
-import Footer from '../components/Footer';
 
 const Property = () => {
   const [property, setProperty] = useState(null);
@@ -32,12 +32,9 @@ const Property = () => {
     setShowFullView(true);
   };
 
-  // Helper to handle full URLs and filenames
   const getImageUrl = (img) => {
     if (!img) return "https://via.placeholder.com/400x300?text=No+Image";
-    return /^https?:\/\//i.test(img)
-      ? img
-      : `${API_BASE_URL}/uploads/${encodeURIComponent(img.replace(/^uploads\//, ''))}`;
+    return img.startsWith('http') ? img : `${API_BASE_URL}/${img}`;
   };
 
   if (!property) return <p>Loading...</p>;
@@ -49,9 +46,9 @@ const Property = () => {
 
   return (
     <div className="Property-container">
-      <div className="propertyc-header"><Navbar /></div>
+      <Navbar />
 
-      {/* Image gallery */}
+      {/* Image Gallery */}
       <div className="image-gallery">
         <div className="main-image" onClick={() => handleImageClick(firstImage)}>
           <img src={getImageUrl(firstImage)} alt="Main" />
@@ -73,7 +70,7 @@ const Property = () => {
         </div>
       </div>
 
-      {/* Property details */}
+      {/* Property Details */}
       <div className="p-bottom">
         <div className="p-left">
           <div className="pd-top">
@@ -101,26 +98,22 @@ const Property = () => {
         </div>
 
         <div className="d-right">
-          <div className="description-top">
-            <h3>Description</h3>
-          </div>
+          <h3>Description</h3>
           <p>{property.description}</p>
-          <div className="d-book-button">
-            <a
-              href="https://wa.me/+971569192299"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-button"
-            >
-              <button>Book Now</button>
-            </a>
-          </div>
+          <a
+            href="https://wa.me/+971569192299"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-button"
+          >
+            <button>Book Now</button>
+          </a>
         </div>
       </div>
 
       <Footer />
 
-      {/* Full view modal / Carousel */}
+      {/* Full View Modal */}
       {showFullView && (
         <div className="full-view" onClick={() => setShowFullView(false)}>
           <div className="carousel-container" onClick={e => e.stopPropagation()}>

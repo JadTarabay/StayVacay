@@ -23,6 +23,7 @@ const Properties = () => {
         const data = await res.json();
         setProperties(data);
         setFilteredProperties(data);
+        console.log('Fetched properties:', data);
       } catch (err) {
         console.error('Failed to fetch properties', err);
       }
@@ -74,7 +75,7 @@ const Properties = () => {
               bedrooms={property.bedrooms}
               bathrooms={property.bathrooms}
               size={property.size}
-              propertyImages={property.images}
+              images={property.images}
             />
           ))
         ) : (

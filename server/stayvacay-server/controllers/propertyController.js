@@ -1,98 +1,98 @@
-import fs from 'fs';
-import path from 'path';
 import Property from '../models/property.js';
+import path from 'path';
+import fs from 'fs';
 
+// GET all properties (public)
 export const getAllProperties = async (req, res) => {
-  const properties = await Property.find({ isDeleted: false });
-  res.json(properties);
-};
-
-export const addProperty = async (req, res) => {
-  const { name, location, price, bedrooms, bathrooms, size, description } = req.body;
-
-  const imagePaths = req.files?.map(file => {
-    return `${req.protocol}://${req.get('host')}/uploads/${encodeURIComponent(file.filename)}`;
-  }) || [];
-
-  const newProperty = new Property({
-    name,
-    location,
-    price,
-    bedrooms,
-    bathrooms,
-    size,
-    description,
-    images: imagePaths
-  });
-
-  await newProperty.save();
-  res.status(201).json(newProperty);
-};
-
-export const updateProperty = async (req, res) => {
-  const { id } = req.params;
-  const updatedData = { ...req.body };
-
-  if (req.files && req.files.length > 0) {
-    updatedData.images = req.files.map(file => {
-      return `${req.protocol}://${req.get('host')}/uploads/${encodeURIComponent(file.filename)}`;
-    });
-  }
-
-  const updated = await Property.findByIdAndUpdate(id, updatedData, { new: true });
-  res.json(updated);
-};
-
-
-export const getPropertyById = async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const property = await Property.findById(id);
+    const properties = await Property.find({});
+    res.json(properties);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
-    if (!property || property.isDeleted) {
-      return res.status(404).json({ message: 'Property not found' });
-    }
-
-    // Increment views
-    property.views = (property.views || 0) + 1;
-    await property.save();
-
+// GET property by ID (public)
+export const getPropertyById = async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+    if (!property) return res.status(404).json({ message: 'Property not found' });
     res.json(property);
   } catch (err) {
-    console.error('Error fetching property by ID:', err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: err.message });
   }
 };
 
-export const deleteProperty = async (req, res) => {
-  const { id } = req.params;
-
+// ADD property
+export const addProperty = async (req, res) => {
   try {
-    const property = await Property.findById(id);
-    if (!property) {
-      return res.status(404).json({ message: 'Property not found' });
+    const { name, location, price, bedrooms, bathrooms, size, description } = req.body;
+
+    // Handle images
+    let images = [];
+    if (req.files) {
+      images = req.files.map(file => `uploads/${file.filename}`);
     }
 
-    // Delete images from disk
+    const property = new Property({
+      name,
+      location,
+      price,
+      bedrooms,
+      bathrooms,
+      size,
+      description,
+      images
+    });
+
+    const savedProperty = await property.save();
+    res.status(201).json(savedProperty);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// UPDATE property
+export const updateProperty = async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+    if (!property) return res.status(404).json({ message: 'Property not found' });
+
+    // Update fields
+    Object.keys(req.body).forEach(key => {
+      property[key] = req.body[key];
+    });
+
+    // Handle new images (optional)
+    if (req.files && req.files.length > 0) {
+      // Optionally delete old images here if you want
+      property.images.push(...req.files.map(file => `uploads/${file.filename}`));
+    }
+
+    const updatedProperty = await property.save();
+    res.json(updatedProperty);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// DELETE property
+export const deleteProperty = async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+    if (!property) return res.status(404).json({ message: 'Property not found' });
+
+    // Delete images from server
     if (property.images && property.images.length > 0) {
-      property.images.forEach(imagePath => {
-        const fullPath = path.resolve(imagePath); // Ensure absolute path
-        fs.unlink(fullPath, err => {
-          if (err) {
-            console.error(`Failed to delete file: ${fullPath}`, err);
-          }
-        });
+      property.images.forEach(imgPath => {
+        const fullPath = path.join(process.cwd(), imgPath);
+        if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
       });
     }
 
-    // Soft delete property
-    await Property.findByIdAndUpdate(id, { isDeleted: true });
-
-    res.json({ message: 'Property soft deleted and images removed from server' });
-
+    await property.deleteOne();
+    res.json({ message: 'Property deleted successfully' });
   } catch (err) {
-    console.error('Error deleting property:', err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: err.message });
   }
 };

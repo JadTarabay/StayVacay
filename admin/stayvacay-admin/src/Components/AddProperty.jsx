@@ -27,16 +27,18 @@ const AddProperty = () => {
           formData.append(key, data[key]);
         }
       }
+
       files.forEach(file => formData.append('images', file));
 
       await api.post('/properties', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
-      toast.success('Property added!');
+      toast.success('Property added successfully!');
       reset();
       setFiles([]);
     } catch (err) {
+      console.error(err);
       toast.error('Failed to add property');
     }
   };
@@ -63,8 +65,6 @@ const AddProperty = () => {
             className="property-description"
           />
         </div>
-        
-
         <div className="form-row-bottom">
           <div {...getRootProps({ className: 'dropzone' })}>
             <input {...getInputProps()} />
