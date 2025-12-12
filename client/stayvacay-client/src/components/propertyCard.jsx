@@ -21,12 +21,21 @@ const PropertyCard = ({
     navigate(`/property/${_id}`);
   };
 
+  // AED price formatter
+  const formatPrice = (value) =>
+    new Intl.NumberFormat('en-AE', {
+      style: 'currency',
+      currency: 'AED',
+      minimumFractionDigits: 0
+    }).format(value);
+
   return (
     <div className='property-card' onClick={handleClick}>
       <div className="card-left">
         <div className="card-top">
-          <h1>${price}</h1>
-          <h1>{name}</h1>
+           <h1>{name}</h1>
+          <h2>{formatPrice(price)}</h2>
+         
           <div className="location">
             <img src={locationIcon} alt="location" />
             <p>{location}</p>
@@ -67,9 +76,6 @@ const PropertyCard = ({
           <img src={images[0]} alt="Property" />
         )}
       </div>
-
-
-
     </div>
   );
 };

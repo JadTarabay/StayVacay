@@ -17,7 +17,12 @@ const PropertyCardfull = ({
     Array.isArray(images) && images.length > 0
       ? images[0]
       : null;
-
+  const formatPrice = (value) =>
+      new Intl.NumberFormat('en-AE', {
+        style: 'currency',
+        currency: 'AED',
+        minimumFractionDigits: 0,
+      }).format(value);
   return (
     <div className="property-card-full">
       <div className="left-info">
@@ -29,10 +34,10 @@ const PropertyCardfull = ({
         </div>
 
         <div className="details-row">
-          <span className="detail">${price}</span>
+          <span className="detail">{formatPrice(price)}</span>
           <span className="detail"><IoBedOutline /> {bedrooms}</span>
           <span className="detail"><MdBathtub /> {bathrooms}</span>
-          <span className="detail"><MdOutlineWidthWide /> {size} m²</span>
+          <span className="detail"><MdOutlineWidthWide /> {size} sqft</span>
         </div>
       </div>
 

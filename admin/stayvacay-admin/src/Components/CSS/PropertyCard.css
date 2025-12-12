@@ -41,7 +41,7 @@
 .card-top h2{
     font-family:  'Tw Cen MT', 'Century Gothic', 'Arial', sans-serif;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 18px !important;
     line-height: 100%;
     letter-spacing: 0%;
     color: #434343;

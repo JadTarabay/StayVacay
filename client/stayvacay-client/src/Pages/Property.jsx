@@ -43,6 +43,12 @@ const Property = () => {
   const nextFour = images.slice(1, 5);
   const remainingImages = images.slice(5);
   const remainingCount = remainingImages.length;
+  const formatPrice = (value) =>
+    new Intl.NumberFormat('en-AE', {
+      style: 'currency',
+      currency: 'AED',
+      minimumFractionDigits: 0,
+    }).format(value);
 
   return (
     <div className="Property-container">
@@ -81,7 +87,7 @@ const Property = () => {
         <div className="p-left">
           <div className="pd-top">
             <h2>{property.name}</h2>
-            <p>Price: ${property.price}</p>
+            <p>Price: {formatPrice(property.price)}</p>
           </div>
 
           <div className="pd-bottom">

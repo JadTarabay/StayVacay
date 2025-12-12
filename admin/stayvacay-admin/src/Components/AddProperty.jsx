@@ -55,14 +55,14 @@ const AddProperty = () => {
         <div className="form-row">
           <input {...register('name')} placeholder="Property Name" required />
           <input {...register('location')} placeholder="Property Location" required />
-          <input type="number" {...register('price')} placeholder="Price" required />
+          <input type="number" {...register('price')} placeholder="Price in AED" required />
         </div>
 
         {/* Row 2 */}
         <div className="form-row">
           <input type="number" {...register('bedrooms')} placeholder="Bedrooms" required />
           <input type="number" {...register('bathrooms')} placeholder="Bathrooms" required />
-          <input type="number" {...register('size')} placeholder="Size (sqm)" required />
+          <input type="number" {...register('size')} placeholder="Size (sqft)" required />
         </div>
 
         {/* Description */}
