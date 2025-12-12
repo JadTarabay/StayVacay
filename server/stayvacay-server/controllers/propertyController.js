@@ -1,8 +1,10 @@
 import Property from '../models/property.js';
-import path from 'path';
-import fs from 'fs';
+import { supabase } from '../config/supabase.js';
+import { v4 as uuidv4 } from "uuid";
 
+// ---------------------------
 // GET all properties (public)
+// ---------------------------
 export const getAllProperties = async (req, res) => {
   try {
     const properties = await Property.find({});
@@ -12,26 +14,55 @@ export const getAllProperties = async (req, res) => {
   }
 };
 
+// ---------------------------
 // GET property by ID (public)
+// ---------------------------
 export const getPropertyById = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
-    if (!property) return res.status(404).json({ message: 'Property not found' });
+    if (!property) return res.status(404).json({ message: "Property not found" });
+
     res.json(property);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-// ADD property
+// ---------------------------
+// ADD NEW PROPERTY
+// ---------------------------
 export const addProperty = async (req, res) => {
   try {
     const { name, location, price, bedrooms, bathrooms, size, description } = req.body;
 
-    // Handle images
-    let images = [];
-    if (req.files) {
-      images = req.files.map(file => `uploads/${file.filename}`);
+    let imageUrls = [];
+
+    // Upload images to Supabase
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const ext = file.originalname.split(".").pop();
+        const fileName = `${uuidv4()}.${ext}`; // unique file name
+
+        const { error } = await supabase.storage
+          .from("properties")
+          .upload(fileName, file.buffer, {
+            contentType: file.mimetype,
+          });
+
+        if (error) {
+          console.log(error);
+          return res.status(500).json({ message: "Image upload failed" });
+        }
+
+        // Get public URL
+        const publicUrl = supabase
+          .storage
+          .from("properties")
+          .getPublicUrl(fileName)
+          .data.publicUrl;
+
+        imageUrls.push(publicUrl);
+      }
     }
 
     const property = new Property({
@@ -42,56 +73,88 @@ export const addProperty = async (req, res) => {
       bathrooms,
       size,
       description,
-      images
+      images: imageUrls,
     });
 
     const savedProperty = await property.save();
     res.status(201).json(savedProperty);
+
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
 
-// UPDATE property
+// ---------------------------
+// UPDATE PROPERTY
+// ---------------------------
 export const updateProperty = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
-    if (!property) return res.status(404).json({ message: 'Property not found' });
+    if (!property) return res.status(404).json({ message: "Property not found" });
 
-    // Update fields
-    Object.keys(req.body).forEach(key => {
+    // Update all regular fields
+    Object.keys(req.body).forEach((key) => {
       property[key] = req.body[key];
     });
 
-    // Handle new images (optional)
+    // Upload new images if provided
     if (req.files && req.files.length > 0) {
-      // Optionally delete old images here if you want
-      property.images.push(...req.files.map(file => `uploads/${file.filename}`));
+      for (const file of req.files) {
+        const ext = file.originalname.split(".").pop();
+        const fileName = `${uuidv4()}.${ext}`;
+
+        const { error } = await supabase.storage
+          .from("properties")
+          .upload(fileName, file.buffer, {
+            contentType: file.mimetype,
+          });
+
+        if (error) {
+          console.log(error);
+          return res.status(500).json({ message: "Image upload failed" });
+        }
+
+        const publicUrl = supabase
+          .storage
+          .from("properties")
+          .getPublicUrl(fileName)
+          .data.publicUrl;
+
+        property.images.push(publicUrl);
+      }
     }
 
     const updatedProperty = await property.save();
     res.json(updatedProperty);
+
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
 
-// DELETE property
+// ---------------------------
+// DELETE PROPERTY + IMAGES
+// ---------------------------
 export const deleteProperty = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
-    if (!property) return res.status(404).json({ message: 'Property not found' });
+    if (!property) return res.status(404).json({ message: "Property not found" });
 
-    // Delete images from server
-    if (property.images && property.images.length > 0) {
-      property.images.forEach(imgPath => {
-        const fullPath = path.join(process.cwd(), imgPath);
-        if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
-      });
+    // Delete Supabase images
+    if (property.images?.length > 0) {
+      for (const imgUrl of property.images) {
+        let path = imgUrl.split("/properties/")[1]; // extract filename
+
+        if (path) {
+          await supabase.storage.from("properties").remove([path]);
+        }
+      }
     }
 
     await property.deleteOne();
-    res.json({ message: 'Property deleted successfully' });
+
+    res.json({ message: "Property deleted successfully" });
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -9,32 +9,35 @@ const AddProperty = () => {
   const { register, handleSubmit, reset } = useForm();
   const [files, setFiles] = useState([]);
 
-  const onDrop = acceptedFiles => {
-    setFiles(prev => [...prev, ...acceptedFiles]);
+  const onDrop = (acceptedFiles) => {
+    setFiles((prev) => [...prev, ...acceptedFiles]);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'image/*': [] },
-    multiple: true
+    multiple: true,
   });
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     try {
       const formData = new FormData();
-      for (const key in data) {
-        if (!['images'].includes(key)) {
-          formData.append(key, data[key]);
-        }
-      }
 
-      files.forEach(file => formData.append('images', file));
-
-      await api.post('/properties', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+      // Append text fields
+      Object.keys(data).forEach((key) => {
+        formData.append(key, data[key]);
       });
 
-      toast.success('Property added successfully!');
+      // Append images
+      files.forEach((file) => {
+        formData.append('images', file);
+      });
+
+      await api.post('/properties', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      toast.success('Property added successfully');
       reset();
       setFiles([]);
     } catch (err) {
@@ -46,17 +49,23 @@ const AddProperty = () => {
   return (
     <div className="page-container">
       <h2>Add Property</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="add-property-form">  
+
+      <form onSubmit={handleSubmit(onSubmit)} className="add-property-form">
+        {/* Row 1 */}
         <div className="form-row">
           <input {...register('name')} placeholder="Property Name" required />
           <input {...register('location')} placeholder="Property Location" required />
           <input type="number" {...register('price')} placeholder="Price" required />
         </div>
+
+        {/* Row 2 */}
         <div className="form-row">
-          <input type="number" {...register('bedrooms')} placeholder="Number of Beds" required />
-          <input type="number" {...register('bathrooms')} placeholder="Number of Baths" required />
-          <input type="number" {...register('size')} placeholder="Dimensions (m²)" required />  
+          <input type="number" {...register('bedrooms')} placeholder="Bedrooms" required />
+          <input type="number" {...register('bathrooms')} placeholder="Bathrooms" required />
+          <input type="number" {...register('size')} placeholder="Size (sqm)" required />
         </div>
+
+        {/* Description */}
         <div className="text-area">
           <textarea
             {...register('description')}
@@ -65,14 +74,18 @@ const AddProperty = () => {
             className="property-description"
           />
         </div>
+
+        {/* Bottom Row */}
         <div className="form-row-bottom">
           <div {...getRootProps({ className: 'dropzone' })}>
             <input {...getInputProps()} />
+
             {isDragActive ? (
-              <p>Drop the files here ...</p>
+              <p>Drop the images here…</p>
             ) : (
-              <p>Drag & drop property images here, or click to select files</p>
+              <p>Drag & drop property images here, or click to select</p>
             )}
+
             {files.length > 0 && (
               <div className="file-preview">
                 {files.map((file, idx) => (
@@ -81,6 +94,7 @@ const AddProperty = () => {
               </div>
             )}
           </div>
+
           <button type="submit">Add Property</button>
         </div>
       </form>

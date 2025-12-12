@@ -1,24 +1,31 @@
-import express from 'express';
-import { 
-  getAllProperties, 
-  addProperty, 
-  updateProperty, 
-  deleteProperty, 
-  getPropertyById 
-} from '../controllers/propertyController.js';
-import { protect } from '../middleware/authMiddleware.js';
-import upload from '../middleware/upload.js';
+import express from "express";
+import multer from "multer";
+import {
+  addProperty,
+  getAllProperties,
+  getPropertyById,
+  updateProperty,
+  deleteProperty,
+} from "../controllers/propertyController.js";
 
 const router = express.Router();
 
-// Public routes
-router.get('/public', getAllProperties);
-router.get('/public/:id', getPropertyById);
+// Multer memory storage (required for Supabase)
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-// Protected routes (admin)
-router.get('/', protect, getAllProperties);
-router.post('/', protect, upload.array('images'), addProperty);
-router.put('/:id', protect, upload.array('images'), updateProperty);
-router.delete('/:id', protect, deleteProperty);
+/**
+ * PUBLIC ROUTES
+ */
+router.get("/public", getAllProperties);
+router.get("/public/:id", getPropertyById);
+
+/**
+ * ADMIN ROUTES
+ * (add protect middleware if you have auth)
+ */
+router.post("/", upload.array("images"), addProperty);
+router.put("/:id", upload.array("images"), updateProperty);
+router.delete("/:id", deleteProperty);
 
 export default router;

@@ -16,6 +16,7 @@
     "@aws-sdk/client-s3": "^3.911.0",
     "@aws-sdk/lib-storage": "^3.911.0",
     "@aws-sdk/s3-request-presigner": "^3.911.0",
+    "@supabase/supabase-js": "^2.87.1",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
@@ -26,7 +27,8 @@
     "mongoose": "^8.15.1",
     "multer": "^2.0.2",
     "multer-s3": "^3.0.1",
-    "stayvacay-server": "file:"
+    "stayvacay-server": "file:",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

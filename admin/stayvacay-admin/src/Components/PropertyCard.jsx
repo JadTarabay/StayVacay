@@ -1,51 +1,42 @@
-import React from 'react';
-import locationIcon from "../assets/location.png";
-import { IoBedOutline } from "react-icons/io5";
-import { MdBathtub, MdOutlineWidthWide } from "react-icons/md";
-import './CSS/PropertyCard.css';
+import React from "react";
+import "./CSS/PropertyCard.css";
 
 const PropertyCard = ({
+  _id,
   price,
   name,
   location,
   bedrooms,
   bathrooms,
   size,
-  propertyImages
+  images
 }) => {
+
+  const firstImage = images?.[0]; // already public Supabase URL
+
   return (
-    
-      <div className='property-card'>
-        <div className="card-left">
-          <div className="card-top">
-            <h1>${price}</h1>
-            <h1>{name}</h1>
-            <div className="location">
-              <img src={locationIcon} alt="location" />
-              <p>{location}</p>
-            </div>
-          </div>
-          <div className="specifications">
-            <div className="specification"><IoBedOutline className='card-icon' /><p>{bedrooms}</p></div>
-            <div className="specification"><MdBathtub className='card-icon' /><p>{bathrooms}</p></div>
-            <div className="specification"><MdOutlineWidthWide className='card-icon' /><p>{size} m²</p></div>
-          </div>
-          <hr />
-          <div className="card-bottom">
-            <a
-                href="https://wa.me/+971569192299"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-button"
-              >
-                <button className='book-button'>Book</button>
-              </a>
-          </div>
-        </div>
-        <div className="card-right">
-          <img src={`http://localhost:5000/${propertyImages[0]}`} alt="Property" />
+    <div className="property-card">
+      <div className="card-left">
+        <h1>${price}</h1>
+        <h1>{name}</h1>
+
+        <p>{location}</p>
+
+        <div className="specs">
+          <p>{bedrooms} Beds</p>
+          <p>{bathrooms} Baths</p>
+          <p>{size} sqft</p>
         </div>
       </div>
+
+      <div className="card-right">
+        {firstImage ? (
+          <img src={firstImage} alt="Property" />
+        ) : (
+          <p>No Image</p>
+        )}
+      </div>
+    </div>
   );
 };
 

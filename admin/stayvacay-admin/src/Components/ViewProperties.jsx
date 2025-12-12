@@ -7,7 +7,7 @@ const ViewProperties = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
-    api.get('/properties')
+    api.get('/properties/public')
       .then(res => setProperties(res.data))
       .catch(console.error);
   }, []);
@@ -15,17 +15,22 @@ const ViewProperties = () => {
   return (
     <div className="page-container">
       <h2>All Properties</h2>
+
       <div className="view-properties">
-        {properties.length === 0 ? <p>No properties found.</p> : (
+        {properties.length === 0 ? (
+          <p>No properties found.</p>
+        ) : (
           properties.map(prop => (
-            <PropertyCard key={prop._id} 
+            <PropertyCard
+              key={prop._id}
+              _id={prop._id}
               price={prop.price}
               name={prop.name}
               location={prop.location}
               bedrooms={prop.bedrooms}
               bathrooms={prop.bathrooms}
               size={prop.size}
-              propertyImages={prop.images}
+              images={prop.images}
             />
           ))
         )}

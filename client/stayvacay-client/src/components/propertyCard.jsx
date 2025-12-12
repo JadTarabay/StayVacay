@@ -20,8 +20,6 @@ const PropertyCard = ({
   const handleClick = () => {
     navigate(`/property/${_id}`);
   };
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
-  // Simply take the first image, whatever it is
 
   return (
     <div className='property-card' onClick={handleClick}>
@@ -66,9 +64,10 @@ const PropertyCard = ({
 
       <div className="card-right">
         {images && images.length > 0 && (
-          <img src={`${API_BASE_URL}/${images[0]}`} alt="Property" />
+          <img src={images[0]} alt="Property" />
         )}
       </div>
+
 
 
     </div>

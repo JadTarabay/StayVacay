@@ -11,16 +11,23 @@ const PropertyCardfull = ({
   bedrooms,
   bathrooms,
   size,
-  propertyImages
+  images
 }) => {
+  const firstImage =
+    Array.isArray(images) && images.length > 0
+      ? images[0]
+      : null;
+
   return (
     <div className="property-card-full">
       <div className="left-info">
         <h3 className="property-name">{name}</h3>
+
         <div className="location-row">
           <img src={locationIcon} alt="location" className="location-icon" />
           <span>{location}</span>
         </div>
+
         <div className="details-row">
           <span className="detail">${price}</span>
           <span className="detail"><IoBedOutline /> {bedrooms}</span>
@@ -28,12 +35,15 @@ const PropertyCardfull = ({
           <span className="detail"><MdOutlineWidthWide /> {size} m²</span>
         </div>
       </div>
+
       <div className="right-image">
-        <img
-          src={`http://localhost:5000/${propertyImages?.[0]}`}
-          alt="Property"
-          className="property-thumb"
-        />
+        {firstImage && (
+          <img
+            src={firstImage}
+            alt="Property"
+            className="property-thumb"
+          />
+        )}
       </div>
     </div>
   );

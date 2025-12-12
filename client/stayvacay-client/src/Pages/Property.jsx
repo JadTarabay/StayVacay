@@ -11,6 +11,7 @@ const Property = () => {
   const [property, setProperty] = useState(null);
   const [showFullView, setShowFullView] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
+
   const { id } = useParams();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
@@ -24,24 +25,23 @@ const Property = () => {
         console.error(err);
       }
     };
+
     fetchProperty();
   }, [id, API_BASE_URL]);
 
+  // ✅ MUST be inside component
   const handleImageClick = (img) => {
     setCurrentImage(img);
     setShowFullView(true);
   };
 
-  const getImageUrl = (img) => {
-    if (!img) return "https://via.placeholder.com/400x300?text=No+Image";
-    return img.startsWith('http') ? img : `${API_BASE_URL}/${img}`;
-  };
-
   if (!property) return <p>Loading...</p>;
 
-  const firstImage = property.images[0];
-  const nextFour = property.images.slice(1, 5);
-  const remainingImages = property.images.slice(5);
+  const images = property.images || [];
+
+  const firstImage = images[0];
+  const nextFour = images.slice(1, 5);
+  const remainingImages = images.slice(5);
   const remainingCount = remainingImages.length;
 
   return (
@@ -51,12 +51,18 @@ const Property = () => {
       {/* Image Gallery */}
       <div className="image-gallery">
         <div className="main-image" onClick={() => handleImageClick(firstImage)}>
-          <img src={getImageUrl(firstImage)} alt="Main" />
+          <img src={firstImage} alt="Main" />
         </div>
+
         <div className="sub-images">
           {nextFour.map((img, idx) => (
-            <div key={idx} className="sub-image" onClick={() => handleImageClick(img)}>
-              <img src={getImageUrl(img)} alt={`Sub ${idx}`} />
+            <div
+              key={idx}
+              className="sub-image"
+              onClick={() => handleImageClick(img)}
+            >
+              <img src={img} alt="" />
+
               {idx === 3 && remainingCount > 0 && (
                 <div
                   className="overlay"
@@ -77,34 +83,38 @@ const Property = () => {
             <h2>{property.name}</h2>
             <p>Price: ${property.price}</p>
           </div>
+
           <div className="pd-bottom">
             <div className="pd-detail">
               <FaLocationDot className='pd-icon' />
-              <p>{property.location}</p> 
+              <p>{property.location}</p>
             </div>
+
             <div className="pd-detail">
               <IoBedOutline className='pd-icon' />
               <p>Bedrooms: {property.bedrooms}</p>
             </div>
+
             <div className="pd-detail">
               <MdBathtub className='pd-icon' />
               <p>Bathrooms: {property.bathrooms}</p>
             </div>
+
             <div className="pd-detail">
               <MdOutlineWidthWide className='pd-icon' />
               <p>Size: {property.size} sqm</p>
-            </div>  
+            </div>
           </div>
         </div>
 
         <div className="d-right">
           <h3>Description</h3>
           <p>{property.description}</p>
+
           <a
             href="https://wa.me/+971569192299"
             target="_blank"
             rel="noopener noreferrer"
-            className="contact-button"
           >
             <button>Book Now</button>
           </a>
@@ -116,20 +126,24 @@ const Property = () => {
       {/* Full View Modal */}
       {showFullView && (
         <div className="full-view" onClick={() => setShowFullView(false)}>
-          <div className="carousel-container" onClick={e => e.stopPropagation()}>
+          <div
+            className="carousel-container"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               className="carousel-prev"
               onClick={() => {
-                const currentIndex = property.images.indexOf(currentImage);
-                const prevIndex = (currentIndex - 1 + property.images.length) % property.images.length;
-                setCurrentImage(property.images[prevIndex]);
+                const currentIndex = images.indexOf(currentImage);
+                const prevIndex =
+                  (currentIndex - 1 + images.length) % images.length;
+                setCurrentImage(images[prevIndex]);
               }}
             >
               &#10094;
             </button>
 
             <img
-              src={getImageUrl(currentImage)}
+              src={currentImage}
               alt="Full view"
               className="carousel-main-image"
             />
@@ -137,21 +151,22 @@ const Property = () => {
             <button
               className="carousel-next"
               onClick={() => {
-                const currentIndex = property.images.indexOf(currentImage);
-                const nextIndex = (currentIndex + 1) % property.images.length;
-                setCurrentImage(property.images[nextIndex]);
+                const currentIndex = images.indexOf(currentImage);
+                const nextIndex =
+                  (currentIndex + 1) % images.length;
+                setCurrentImage(images[nextIndex]);
               }}
             >
               &#10095;
             </button>
 
             <div className="carousel-thumbnails">
-              {property.images.map((img, idx) => (
+              {images.map((img, idx) => (
                 <img
                   key={idx}
-                  src={getImageUrl(img)}
-                  alt={`Thumb ${idx}`}
-                  className={getImageUrl(img) === getImageUrl(currentImage) ? 'active-thumb' : ''}
+                  src={img}
+                  alt=""
+                  className={img === currentImage ? "active-thumb" : ""}
                   onClick={() => setCurrentImage(img)}
                 />
               ))}
