@@ -11,6 +11,10 @@ const UpdateProperty = () => {
   const [selected, setSelected] = useState(null);
   const [files, setFiles] = useState([]);
 
+  const [amenities, setAmenities] = useState(['']);
+  const [nearbyPlaces, setNearbyPlaces] = useState(['']);
+  const [notes, setNotes] = useState(['']);
+
   const { register, handleSubmit, reset } = useForm();
 
   const fetchProperties = async () => {
@@ -30,6 +34,10 @@ const UpdateProperty = () => {
     setSelected(property);
     setFiles([]);
 
+    setAmenities(property.description?.amenities || ['']);
+    setNearbyPlaces(property.description?.nearbyPlaces || ['']);
+    setNotes(property.description?.notes || ['']);
+
     reset({
       name: property.name,
       location: property.location,
@@ -37,14 +45,59 @@ const UpdateProperty = () => {
       bedrooms: property.bedrooms,
       bathrooms: property.bathrooms,
       size: property.size,
-      description: property.description || '',
+      shortDescription: property.description?.shortDescription || '',
     });
   };
+
+  const handleDynamicChange = (setter, index, value) => {
+    setter((prev) => {
+      const copy = [...prev];
+      copy[index] = value;
+      return copy;
+    });
+  };
+
+  const addField = (setter) => setter((prev) => [...prev, '']);
+  const removeField = (setter, index) =>
+    setter((prev) => prev.filter((_, i) => i !== index));
+
+  const renderDynamicInputs = (label, values, setter) => (
+    <div className="dynamic-section">
+      <h4>{label}</h4>
+
+      {values.map((value, idx) => (
+        <div key={idx} className="dynamic-row">
+          <input
+            type="text"
+            value={value}
+            onChange={(e) =>
+              handleDynamicChange(setter, idx, e.target.value)
+            }
+          />
+          <button
+            type="button"
+            onClick={() => removeField(setter, idx)}
+          >
+            ✕
+          </button>
+        </div>
+      ))}
+
+      <button
+        type="button"
+        className="add-btn"
+        onClick={() => addField(setter)}
+      >
+        + Add
+      </button>
+    </div>
+  );
 
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
 
+      // Basic fields
       [
         'name',
         'location',
@@ -52,12 +105,22 @@ const UpdateProperty = () => {
         'bedrooms',
         'bathrooms',
         'size',
-        'description',
       ].forEach((key) => {
         formData.append(key, data[key]);
       });
 
-      // Append new images (optional)
+      // Structured description
+      formData.append(
+        'description',
+        JSON.stringify({
+          shortDescription: data.shortDescription,
+          amenities: amenities.filter(Boolean),
+          nearbyPlaces: nearbyPlaces.filter(Boolean),
+          notes: notes.filter(Boolean),
+        })
+      );
+
+      // New images
       files.forEach((file) => {
         formData.append('images', file);
       });
@@ -66,10 +129,11 @@ const UpdateProperty = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      toast.success('Property updated!');
+      toast.success('Property updated successfully');
       setSelected(null);
       setFiles([]);
       fetchProperties();
+
     } catch (err) {
       console.error(err);
       toast.error('Failed to update property');
@@ -91,15 +155,7 @@ const UpdateProperty = () => {
         <div className="property-list">
           {properties.map((prop) => (
             <div className="property-wrapper" key={prop._id}>
-              <PropertyCardFull
-                price={prop.price}
-                name={prop.name}
-                location={prop.location}
-                bedrooms={prop.bedrooms}
-                bathrooms={prop.bathrooms}
-                size={prop.size}
-                images={prop.images}
-              />
+              <PropertyCardFull {...prop} />
               <button
                 className="edit-button"
                 onClick={() => openEditForm(prop)}
@@ -110,64 +166,34 @@ const UpdateProperty = () => {
           ))}
         </div>
       ) : (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          encType="multipart/form-data"
-          className="edit-form"
-        >
-          <div className="edit-form-row">
-            <label>Name</label>
-            <input {...register('name')} required />
-          </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="edit-form">
+          <input {...register('name')} placeholder="Name" required />
+          <input {...register('location')} placeholder="Location" required />
+          <input type="number" {...register('price')} placeholder="Price" required />
+          <input type="number" {...register('bedrooms')} placeholder="Bedrooms" required />
+          <input type="number" {...register('bathrooms')} placeholder="Bathrooms" required />
+          <input type="number" {...register('size')} placeholder="Size (sqm)" required />
 
-          <div className="edit-form-row">
-            <label>Location</label>
-            <input {...register('location')} required />
-          </div>
+          <textarea
+            {...register('shortDescription')}
+            placeholder="Short description"
+            rows={4}
+          />
 
-          <div className="edit-form-row">
-            <label>Price</label>
-            <input type="number" {...register('price')} required />
-          </div>
-
-          <div className="edit-form-row">
-            <label>Bedrooms</label>
-            <input type="number" {...register('bedrooms')} required />
-          </div>
-
-          <div className="edit-form-row">
-            <label>Bathrooms</label>
-            <input type="number" {...register('bathrooms')} required />
-          </div>
-
-          <div className="edit-form-row">
-            <label>Size (m²)</label>
-            <input type="number" {...register('size')} required />
-          </div>
-
-          <div className="edit-form-row">
-            <label>Description</label>
-            <textarea {...register('description')} required />
-          </div>
+          {renderDynamicInputs('Amenities', amenities, setAmenities)}
+          {renderDynamicInputs('Nearby Places', nearbyPlaces, setNearbyPlaces)}
+          {renderDynamicInputs('Other Things to Note', notes, setNotes)}
 
           <div className="dropzone" {...getRootProps()}>
             <input {...getInputProps()} />
-            <p>Drag & drop images here, or click to select</p>
-          </div>
-
-          <div className="preview-list">
-            {files.map((file, idx) => (
-              <div key={idx} className="preview-item">
-                {file.name}
-              </div>
-            ))}
+            <p>Drag & drop new images (optional)</p>
           </div>
 
           <button type="submit">Save Changes</button>
           <button
             type="button"
-            onClick={() => setSelected(null)}
             className="cancel-button"
+            onClick={() => setSelected(null)}
           >
             Cancel
           </button>

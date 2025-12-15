@@ -11,6 +11,7 @@ const Property = () => {
   const [property, setProperty] = useState(null);
   const [showFullView, setShowFullView] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
+  const [expanded, setExpanded] = useState(false);
 
   const { id } = useParams();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
@@ -91,40 +92,86 @@ const Property = () => {
           </div>
 
           <div className="pd-bottom">
-            <div className="pd-detail">
-              <FaLocationDot className='pd-icon' />
-              <p>{property.location}</p>
+            <div className="pd-bottom-left">
+              <div className="pd-detail">
+                <FaLocationDot className='pd-icon' />
+                <p>{property.location}</p>
+              </div>
+
+              <div className="pd-detail">
+                <IoBedOutline className='pd-icon' />
+                <p>Bedrooms: {property.bedrooms}</p>
+              </div>
+
+              <div className="pd-detail">
+                <MdBathtub className='pd-icon' />
+                <p>Bathrooms: {property.bathrooms}</p>
+              </div>
+
+              <div className="pd-detail">
+                <MdOutlineWidthWide className='pd-icon' />
+                <p>Size: {property.size} sqm</p>
+              </div>
+              <div className="d-book-button">
+                <a
+                  href="https://wa.me/+971569192299"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button>Book Now</button>
+                </a>
+              </div>
+            </div>
+            
+             <div className={`d-right ${expanded ? 'expanded' : 'collapsed'}`}>
+  
+              <button
+                className="toggle-description"
+                onClick={() => setExpanded(!expanded)}
+                aria-label="Toggle description"
+              >
+               {expanded ? '▲' : '▼'}
+              </button>
+
+              <h3>Description</h3>
+              <p>{property.description?.shortDescription}</p>
+
+              <div className="info-section">
+                <h4>Amenities</h4>
+                <ul>
+                  {property.description?.amenities?.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="info-section">
+                <h4>Nearby Places</h4>
+                <ul>
+                  {property.description?.nearbyPlaces?.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="info-section">
+                <h4>Other Things to Note</h4>
+                <ul>
+                  {property.description?.notes?.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+             
             </div>
 
-            <div className="pd-detail">
-              <IoBedOutline className='pd-icon' />
-              <p>Bedrooms: {property.bedrooms}</p>
-            </div>
 
-            <div className="pd-detail">
-              <MdBathtub className='pd-icon' />
-              <p>Bathrooms: {property.bathrooms}</p>
-            </div>
-
-            <div className="pd-detail">
-              <MdOutlineWidthWide className='pd-icon' />
-              <p>Size: {property.size} sqm</p>
-            </div>
           </div>
         </div>
 
-        <div className="d-right">
-          <h3>Description</h3>
-          <p>{property.description}</p>
+       
 
-          <a
-            href="https://wa.me/+971569192299"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button>Book Now</button>
-          </a>
-        </div>
       </div>
 
       <Footer />

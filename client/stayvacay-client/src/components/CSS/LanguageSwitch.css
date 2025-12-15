@@ -1,0 +1,21 @@
+.language-switch {
+  display: flex;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.language-switch a {
+  text-decoration: none;
+  color: #072652;
+  opacity: 0.6;
+}
+
+.language-switch a.active {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.language-switch span {
+  opacity: 0.4;
+}

@@ -5,18 +5,17 @@
     background-position: top;
     border-radius: 40px;
     height: 50vh;
+    width:98%;
 }
 
 .header-gradient{
     background: linear-gradient(180deg, rgba(173, 207, 255, 0) 0%, #072652 100%);
     position: absolute;
-    width: 98.5%;
+    width: 98%;
     height: 50vh;
     bottom: 180px ;
-    left: 0 ;
     border-bottom-right-radius: 40px;
     border-bottom-left-radius: 40px;
-    margin: 10px;
 }
 
 .properties-header h1 {

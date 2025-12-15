@@ -64,8 +64,12 @@
     align-items: center;
     justify-content: center;
 }
+.description {
+  width: 80%;
 
-.text-area textarea {
+}
+
+.text-area {
     width: 100% !important;
     padding: 20px;
     border: 1px solid #434343;
@@ -79,7 +83,13 @@
     outline: none;
     border-color: #072652;
 }
-
+.description-details {
+  display:flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
 .dropzone {
     width: 80%;
     height: 200px;
@@ -117,6 +127,51 @@
     background-color: #ADCFFF;
     color: #072652;
 }
+
+.dynamic-section {
+  margin: 20px 0;
+  width: 30%;
+}
+
+.dynamic-section h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #072652;
+  font-family: Poppins;
+}
+
+.dynamic-row-add {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.dynamic-row-add input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #072652;
+}
+
+.dynamic-row-add button {
+  background: white;
+  color: #072652;
+  border: 1px solid #072652;
+  padding: 0 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-btn-add {
+  margin-top: 5px;
+  background: #072652;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
 @media (max-width: 768px) {
   .page-container {
     margin-left: 0;

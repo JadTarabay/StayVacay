@@ -1,13 +1,18 @@
-.Navbar{
-    background-color: transparent;
-    position:absolute;
-    width: 98vw;
+.Navbar {
+    background-color: rgba(7, 38, 82, 0.8);
+    position: absolute;
+    width: 98%;
     height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+    backdrop-filter: blur(6px); /* optional but professional */
+    margin: 0 10px;
+    border-top-left-radius:15px;
+    border-top-right-radius:15px;
 }
+
 
 .logo {
     width:auto;

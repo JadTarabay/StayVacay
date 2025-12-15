@@ -14,28 +14,39 @@ const Properties = () => {
   const [location, setLocation] = useState('');
   const [beds, setBeds] = useState('');
   const [baths, setBaths] = useState('');
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  const API_BASE_URL =
+    process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+
   useEffect(() => {
- const fetchProperties = async () => {
+    const fetchProperties = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/api/properties/public`);
         if (!res.ok) throw new Error('Failed to fetch properties');
+
         const data = await res.json();
         setProperties(data);
         setFilteredProperties(data);
-        console.log('Fetched properties:', data);
       } catch (err) {
         console.error('Failed to fetch properties', err);
       }
     };
+
     fetchProperties();
-  }, );
+  }, [API_BASE_URL]);
 
   const handleSearch = () => {
     const filtered = properties.filter((prop) => {
-      const matchLocation = location === '' || prop.location.toLowerCase().includes(location.toLowerCase());
-      const matchBeds = beds === '' || parseInt(prop.bedrooms) >= parseInt(beds);
-      const matchBaths = baths === '' || parseInt(prop.bathrooms) >= parseInt(baths);
+      const matchLocation =
+        location === '' ||
+        prop.location.toLowerCase().includes(location.toLowerCase());
+
+      const matchBeds =
+        beds === '' || Number(prop.bedrooms) >= Number(beds);
+
+      const matchBaths =
+        baths === '' || Number(prop.bathrooms) >= Number(baths);
+
       return matchLocation && matchBeds && matchBaths;
     });
 
@@ -45,7 +56,11 @@ const Properties = () => {
   return (
     <div className="properties-container">
       <Navbar />
-      <div className="properties-header" style={{ backgroundImage: `url(${HeroBg})` }}>
+
+      <div
+        className="properties-header"
+        style={{ backgroundImage: `url(${HeroBg})` }}
+      >
         <h1>Explore Dubai Stays</h1>
         <div className="header-gradient"></div>
       </div>
@@ -76,10 +91,15 @@ const Properties = () => {
               bathrooms={property.bathrooms}
               size={property.size}
               images={property.images}
+              shortDescription={
+                property.description?.shortDescription
+              }
             />
           ))
         ) : (
-          <p style={{ textAlign: 'center', marginTop: '20px' }}>No properties found</p>
+          <p style={{ textAlign: 'center', marginTop: '20px' }}>
+            No properties found
+          </p>
         )}
       </div>
 

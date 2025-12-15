@@ -102,3 +102,63 @@
     width: 100%;
   }
 }
+.edit-form {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edit-form input,
+.edit-form textarea {
+  padding: 10px;
+  font-size: 14px;
+  width: 50%;
+  border-radius: 15px;
+  border: 1px solid #072652;
+}
+
+.dynamic-section {
+  margin-top: 15px;
+}
+
+.dynamic-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.dynamic-row input {
+  flex: 1;
+}
+
+.dynamic-row button {
+  background: white;
+  border: 1px solid #072652;
+  color: #072652;
+  padding: 0 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-btn {
+  background: #072652;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dropzone {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background: #999;
+  margin-top: 10px;
+}
