@@ -1,5 +1,5 @@
 .Navbar {
-    background-color: rgba(7, 38, 82, 0.8);
+    background-color: transparent;
     position: absolute;
     width: 98%;
     height: 100px;
@@ -7,8 +7,6 @@
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(6px); /* optional but professional */
-    margin: 0 10px;
     border-top-left-radius:15px;
     border-top-right-radius:15px;
 }
@@ -25,10 +23,11 @@
     gap: 50px;
     flex-direction: row;
     align-items: center;
-    background: #FFFFFF2B;
+    background-color: rgba(7, 38, 82, 0.8);
     padding: 0;
     justify-content: center;
     border-radius: 50px;
+    backdrop-filter: blur(6px); /* optional but professional */
 }
 
 .nav-links{
@@ -95,7 +94,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    background: #FFFFFF2B;
+    background-color: rgba(7, 38, 82, 0.8);
+    backdrop-filter: blur(6px); /* optional but professional */
     gap: 30px;
     border-radius: 50px;   
     border: none;

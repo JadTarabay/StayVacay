@@ -130,7 +130,7 @@ const Property = () => {
                 onClick={() => setExpanded(!expanded)}
                 aria-label="Toggle description"
               >
-               {expanded ? '▲' : '▼'}
+               {expanded ? 'View Less ▲' : ' View More ▼'} 
               </button>
 
               <h3>Description</h3>
@@ -138,21 +138,22 @@ const Property = () => {
 
               <div className="info-section">
                 <h4>Amenities</h4>
-                <ul>
+                <ul className="bubble-list">
                   {property.description?.amenities?.map((item, i) => (
-                    <li key={i}>{item}</li>
+                    <li key={i} className="bubble-item">{item}</li>
                   ))}
                 </ul>
               </div>
 
               <div className="info-section">
                 <h4>Nearby Places</h4>
-                <ul>
+                <ul className="bubble-list">
                   {property.description?.nearbyPlaces?.map((item, i) => (
-                    <li key={i}>{item}</li>
+                    <li key={i} className="bubble-item">{item}</li>
                   ))}
                 </ul>
               </div>
+
 
               <div className="info-section">
                 <h4>Other Things to Note</h4>
