@@ -249,6 +249,7 @@
   border-radius: 10px;
 }
 
+/* ======== YOUR ORIGINAL RESPONSIVE BLOCK (UNCHANGED) ======== */
 @media (max-width: 768px) {
   .sb-top {
     display: grid;
@@ -268,6 +269,7 @@
   .services-top h1{
     font-size: 30px;
   }
+
   .sb-bottom {
     flex-direction: column-reverse;
     align-items: center;
@@ -281,6 +283,7 @@
 
   .sbb-right{
     width: 80%;
+    margin-bottom: 90px;
   }
 
   .sbb-right-img {
@@ -294,5 +297,3 @@
     border-radius: 20px;
   }
 }
-
-

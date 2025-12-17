@@ -1,62 +1,139 @@
-.properties-header{
-    margin: 10px;
-    padding-top: 100px;
-    background-size: cover;
-    background-position: top;
-    border-radius: 40px;
-    height: 50vh;
-    width:98%;
+/* =========================
+   HEADER (DESKTOP)
+========================= */
+
+.properties-header {
+  margin: 10px auto;
+  padding-top: 100px;
+  background-size: cover;
+  background-position: top;
+  border-radius: 40px;
+  min-height: 50vh;
+  width: 98%;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-.header-gradient{
-    background: linear-gradient(180deg, rgba(173, 207, 255, 0) 0%, #072652 100%);
-    position: absolute;
-    width: 98%;
-    height: 50vh;
-    bottom: 180px ;
-    border-bottom-right-radius: 40px;
-    border-bottom-left-radius: 40px;
+.header-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(173, 207, 255, 0) 0%,
+    #072652 100%
+  );
+  border-bottom-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  z-index: 1;
 }
 
 .properties-header h1 {
-    font-family: Tw Cen MT;
-    font-weight: 400;
-    font-size: 64px;
-    line-height: 100%;
-    letter-spacing: 0%;
-    text-align: center;
-    vertical-align: middle;
-    color: #FFFFFF;
-    text-shadow: 1px 2px 6px  #000000B2;
-    z-index: 4;
-    position: relative;
-    margin-top: 80px;
+  font-family: 'Tw Cen MT', 'Century Gothic', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 64px;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 1px 2px 6px #000000b2;
+  position: relative;
+  z-index: 2;
+  margin-top: 80px;
 }
 
+/* =========================
+   SEARCH BAR SECTION
+========================= */
+
 .property-searchbar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  text-align: center;
 }
 
 .property-searchbar h1 {
-    font-family: Poppins;
-    font-weight: 400;
-    font-size: 22px;
-    line-height: 100%;
-    letter-spacing: -0.3px;
-    color: #919191;
+  font-family: Poppins;
+  font-weight: 400;
+  font-size: 22px;
+  color: #919191;
+  margin: 0;
 }
 
-.property-listing{
-    width: 97%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    align-items: center;
+/* =========================
+   PROPERTY GRID
+========================= */
+
+.property-listing {
+  width: 97%;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  box-sizing: border-box;
+}
+
+/* =========================
+   TABLET (≤ 768px)
+========================= */
+
+@media (max-width: 768px) {
+  .properties-header {
+    min-height: 40vh;
+    padding-top: 80px;
+    width: 95%;
+  }
+
+  .properties-header h1 {
+    font-size: 40px;
+    margin-top: 60px;
+  }
+
+  .property-searchbar h1 {
+    font-size: 18px;
+  }
+
+  .property-listing {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    width: 95%;
+  }
+}
+
+/* =========================
+   MOBILE (≤ 480px)
+========================= */
+
+@media (max-width: 480px) {
+  .properties-header {
+    min-height: 35vh;
+    padding-top: 60px;
+    border-radius: 30px;
+  }
+
+  .header-gradient {
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+
+  .properties-header h1 {
+    font-size: 28px;
+    margin-top: 40px;
+  }
+
+  .property-searchbar {
+    margin-top: 20px;
+  }
+
+  .property-searchbar h1 {
+    font-size: 16px;
+  }
+
+  .property-listing {
+    gap: 25px;
+    width: 95%;
     justify-content: center;
-    margin-left: 10px;
+  }
 }
