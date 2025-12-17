@@ -11,7 +11,11 @@ const ViewProperties = () => {
       .then(res => setProperties(res.data))
       .catch(console.error);
   }, []);
-
+  const updateFeaturedState = (updatedProperty) => {
+    setProperties(prev =>
+      prev.map(p => p._id === updatedProperty._id ? updatedProperty : p)
+    );
+  };
   return (
     <div className="page-container">
       <h2>All Properties</h2>
@@ -22,15 +26,9 @@ const ViewProperties = () => {
         ) : (
           properties.map(prop => (
             <PropertyCard
-              key={prop._id}
-              _id={prop._id}
-              price={prop.price}
-              name={prop.name}
-              location={prop.location}
-              bedrooms={prop.bedrooms}
-              bathrooms={prop.bathrooms}
-              size={prop.size}
-              images={prop.images}
+             key={prop._id}
+            {...prop}
+            onFeaturedChange={updateFeaturedState}
             />
           ))
         )}

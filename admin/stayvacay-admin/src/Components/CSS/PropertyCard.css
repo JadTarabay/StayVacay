@@ -10,6 +10,7 @@
     border: 1px solid #E4E4E4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     gap: 10px;
+    position: relative;
 }
 
 .card-left {
@@ -175,6 +176,49 @@
     border-top-right-radius: 40px;
     object-fit: cover;
 }
+
+.property-card {
+  position: relative;
+}
+
+/* FEATURE BUTTON */
+.feature-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.25s ease;
+}
+
+.feature-btn svg {
+  color: #bbb;
+  font-size: 18px;
+}
+
+/* ACTIVE FEATURED */
+.feature-btn.active {
+  background: #ffc107;
+  box-shadow: 0 6px 18px rgba(255, 193, 7, 0.5);
+}
+
+.feature-btn.active svg {
+  color: #fff;
+}
+
+/* HOVER */
+.feature-btn:hover {
+  transform: scale(1.1);
+}
+
 @media (max-width: 768px) {
   .property-card {
     flex-direction: column;

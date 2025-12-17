@@ -6,6 +6,8 @@ import {
   getPropertyById,
   updateProperty,
   deleteProperty,
+  getFeaturedProperties,
+  toggleFeaturedProperty
 } from "../controllers/propertyController.js";
 
 const router = express.Router();
@@ -18,6 +20,7 @@ const upload = multer({ storage });
  * PUBLIC ROUTES
  */
 router.get("/public", getAllProperties);
+router.get("/public/featured", getFeaturedProperties);
 router.get("/public/:id", getPropertyById);
 
 /**
@@ -27,5 +30,7 @@ router.get("/public/:id", getPropertyById);
 router.post("/", upload.array("images"), addProperty);
 router.put("/:id", upload.array("images"), updateProperty);
 router.delete("/:id", deleteProperty);
+router.patch("/:id/feature", toggleFeaturedProperty);
+
 
 export default router;

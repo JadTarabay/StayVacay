@@ -104,6 +104,53 @@ export const addProperty = async (req, res) => {
   }
 };
 
+// controllers/propertyController.js
+export const getFeaturedProperties = async (req, res) => {
+  try {
+    const properties = await Property.find({
+      isFeatured: true,
+      isDeleted: false
+    }).limit(4);
+
+    res.json(properties);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch featured properties" });
+  }
+};
+
+export const toggleFeaturedProperty = async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    if (!property.isFeatured) {
+      const featuredCount = await Property.countDocuments({
+        isFeatured: true,
+        isDeleted: false
+      });
+
+      if (featuredCount >= 4) {
+        return res.status(400).json({
+          message: "You can only feature up to 4 properties"
+        });
+      }
+    }
+
+    property.isFeatured = !property.isFeatured;
+    await property.save();
+
+    res.json(property);
+  } catch (err) {
+    console.error("Toggle featured error:", err);
+    res.status(500).json({ message: "Failed to toggle featured property" });
+  }
+};
+
+
+
+
 // ---------------------------
 // UPDATE PROPERTY
 // ---------------------------
@@ -189,6 +236,7 @@ export const deleteProperty = async (req, res) => {
     if (!property) return res.status(404).json({ message: "Property not found" });
 
     property.isDeleted = true;
+    property.isFeatured = false;
     await property.save();
 
     res.json({ message: "Property deleted successfully" });

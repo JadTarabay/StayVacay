@@ -18,7 +18,9 @@ const propertySchema = new mongoose.Schema({
 
   images: [String],
   views: { type: Number, default: 0 },
-  isDeleted: { type: Boolean, default: false }
+  isDeleted: { type: Boolean, default: false },
+  isFeatured: {type: Boolean, default: false}
+
 }, { timestamps: true });
 
 export default mongoose.model('Property', propertySchema);
