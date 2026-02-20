@@ -140,10 +140,7 @@ const PopularListings = () => {
         </div>
 
         <div className="pg-down">
-          <div
-            className="pg-left"
-            style={{ backgroundImage: `url(${G1})` }}
-          >
+          <div className="pg-left">
             <img src={G1} alt="G1" />
           </div>
 
@@ -152,6 +149,7 @@ const PopularListings = () => {
               <img src={G2} alt="G2" />
               <img src={G3} alt="G3" />
             </div>
+
             <div className="pg-right-down">
               <img src={G4} alt="G4" />
             </div>
