@@ -16,27 +16,26 @@ dotenv.config();
 const app = express();
 
 // Middleware
-const corsOptions = {
+const allowedOrigins = new Set([
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "https://stayvacay-forntend.onrender.com",
+  "https://stayvacay-admin.onrender.com",
+  "https://stay-vacay.com",
+  "https://www.stay-vacay.com",
+  "https://admin.stay-vacay.com",
+]);
+
+app.use(cors({
   origin: (origin, cb) => {
-    console.log("Incoming Origin:", origin);
-
-    // Allow Postman / server-to-server
+    // allow server-to-server / Postman (no Origin header)
     if (!origin) return cb(null, true);
-
-    if (allowedOrigins.has(origin)) return cb(null, true);
-
-    // IMPORTANT: return an error, not (null, false)
-    return cb(new Error(`CORS blocked: ${origin}`));
+    return cb(null, allowedOrigins.has(origin));
   },
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
-  exposedHeaders: ["Set-Cookie"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
-};
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // IMPORTANT for preflight
-
+}));
 
 app.use(express.json());
 app.use(visitMiddleware);
