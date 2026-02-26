@@ -21,7 +21,9 @@ app.use(cors({
     'http://localhost:3000',
     'http://localhost:3001',
     'https://stayvacay-forntend.onrender.com',
-    'https://stayvacay-admin.onrender.com'
+    'https://stayvacay-admin.onrender.com',
+    "https://stay-vacay.com",
+    "https://admin.stay-vacay.com"
   ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
