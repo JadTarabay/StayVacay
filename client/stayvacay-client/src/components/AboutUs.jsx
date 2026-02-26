@@ -3,23 +3,33 @@ import './CSS/AboutUs.css';
 import ANext from '../assets/Aboutus/arrow-next.png';
 import ABack from '../assets/Aboutus/arrow-prev.png';
 import Property3 from '../assets/services/property3.jpg';
+import Saeed from '../assets/team/Saeed.jpeg';
+import Jad from '../assets/team/Jad.png'
+import Ehab from '../assets/team/Ehab.png';
 
 const teamMembers = [
+  
   {
-    name: "Sarah Johnson",
-    position: "Lead Property Manager",
-    image: "https://randomuser.me/api/portraits/women/44.jpg" // Replace with your actual image paths
+    name: "Saeed Al Ayash",
+    position: "CEO – Business Development",
+    image: Saeed
   },
   {
-    name: "James Smith",
-    position: "Marketing Specialist",
-    image: "https://randomuser.me/api/portraits/men/45.jpg"
+    name: "Maher Serawan",
+    position: "Senior Advisor", // Update if needed
+    image: "/team/maher-serawan.jpg"
   },
   {
-    name: "Emily Davis",
-    position: "Customer Experience Lead",
-    image: "https://randomuser.me/api/portraits/women/46.jpg"
+    name: "Ehab Shbeb",
+    position: "Operations Manager",
+    image: Ehab
+  },
+  {
+    name: "Jad Tarabay",
+    position: "Sales Admin",
+    image: Jad
   }
+
 ];
 
 const sections = [
