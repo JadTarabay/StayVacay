@@ -44,15 +44,21 @@ const PropertyCard = ({
 
         <div className="specifications">
           <div className="specification">
-            <IoBedOutline className='card-icon' />
+            <div className="spec-icon">
+              <IoBedOutline className='card-icon' />
+            </div>
             <p>{bedrooms}</p>
           </div>
           <div className="specification">
-            <MdBathtub className='card-icon' />
+            <div className="spec-icon">
+             <MdBathtub className='card-icon' />
+            </div>
             <p>{bathrooms}</p>
           </div>
           <div className="specification">
-            <MdOutlineWidthWide className='card-icon' />
+            <div className="spec-icon">
+              <MdOutlineWidthWide className='card-icon' />
+            </div>
             <p>{size} sqft</p>
           </div>
         </div>

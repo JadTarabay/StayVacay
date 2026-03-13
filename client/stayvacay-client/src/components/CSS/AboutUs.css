@@ -34,31 +34,31 @@
 }
 
 .aboutus-top h2 {
-  font-family: Poppins;
-  font-weight: 400;
+  font-family: var(--font-body);
+  font-weight: 500;
   font-size: 16px;
-  color: #072652;
+  color: var(--color-primary);
   margin: 0;
 }
 
 .aboutus-top-content h1 {
-  font-family: Poppins;
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-weight: 700;
   font-size: 45px;
   margin: 0;
-  color: #434343;
+  color: var(--text-primary);
 }
 
 .aboutus-top-content span {
-  color: #072652;
+  color: var(--color-primary);
 }
 
 .aboutus-top-content p {
-  font-family: Poppins;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 14px;
   margin: 0;
-  color: #BBBBBB;
+  color: var(--text-secondary);
   max-width: 420px;
 }
 
@@ -69,26 +69,26 @@
 }
 
 .aboutus-top-buttons button {
-  font-family: Poppins;
-  font-weight: 400;
+  font-family: var(--font-button);
+  font-weight: 500;
   font-size: 14px;
-  color: #072652;
-  background: #ffffff;
+  color: var(--color-primary);
+  background: var(--color-surface);
   padding: 10px 20px;
   border-radius: 50px;
-  border: 1px solid #072652;
+  border: 1px solid var(--color-primary);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .aboutus-top-buttons button.active,
 .aboutus-top-buttons button:hover {
-  background: #072652;
-  color: #ffffff;
+  background: var(--color-primary);
+  color: var(--text-white);
 }
 
 .aboutus-top-buttons button:focus {
-  outline: 2px solid #072652;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
@@ -120,7 +120,7 @@
   min-height: 350px;
   border-radius: 50px;
   overflow: hidden;
-  color: white;
+  color: var(--text-white);
 }
 
 .aboutus-content-gradient {
@@ -129,27 +129,28 @@
   border-radius: 50px;
   background: linear-gradient(
     180deg,
-    rgba(7, 38, 82, 0.5) 0%,
-    #072652 100%
+    rgba(12, 13, 159, 0.35) 0%,
+    rgba(19, 20, 21, 0.88) 100%
   );
   z-index: 0;
 }
 
 .aboutus-content h1 {
   width: 50%;
-  font-family: Poppins;
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-weight: 700;
   font-size: 35px;
-  color: #ffffff;
+  color: var(--text-white);
   margin: 0;
 }
 
 .aboutus-content p {
-  font-family: Poppins;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 16px;
   margin: 0;
   max-width: 600px;
+  color: var(--text-white);
 }
 
 /* =========================
@@ -172,6 +173,13 @@
   align-items: center;
   text-align: center;
 }
+.team-member h3{
+  color: var(--color-accent) !important;
+}
+
+.team-member{
+  color: var(--color-secondary);
+}
 
 .team-member img {
   width: 180px;
@@ -193,15 +201,15 @@
 }
 
 .number h2 {
-  font-family: Poppins;
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-weight: 700;
   font-size: 32px;
-  color: #ffffff;
+  color: var(--text-white);
   margin: 0;
 }
 
 .number button {
-  background: #ffffff;
+  background: var(--color-surface);
   border: none;
   width: 40px;
   height: 40px;
@@ -211,6 +219,7 @@
   justify-content: center;
   cursor: pointer;
   transition: transform 0.3s ease;
+  color: var(--color-primary);
 }
 
 .number button:hover {
@@ -345,8 +354,8 @@
     height: 34px;
   }
 
-  .aboutus-content-gradient{
-    margin-left:0;
+  .aboutus-content-gradient {
+    margin-left: 0;
     border-radius: 30px;
   }
 }

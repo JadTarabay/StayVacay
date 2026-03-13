@@ -56,7 +56,7 @@ const Navbar = () => {
         rel="noopener noreferrer"
         className="contact-button"
       >
-        Contact Us <FaWhatsapp className="contact-icon" />
+        Contact Us <div className="contact-icon"><FaWhatsapp  className="wp" /></div>
       </a>
       </div>
     </nav>

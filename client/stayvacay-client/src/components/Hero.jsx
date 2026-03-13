@@ -47,8 +47,10 @@ const Hero = () => {
            
             <div className="right">
                 <div className="messages">
-                  <div className="message-top">
-                    <FaBell className="bell" />
+                  <div className="message-top"> 
+                    <div className="bell-div">
+                      <FaBell className="bell"/>
+                    </div>
                     <h2>Customer gets notification</h2>
                   </div>
                   <div className="message-bottom">

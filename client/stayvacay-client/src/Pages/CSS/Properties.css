@@ -20,8 +20,8 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(173, 207, 255, 0) 0%,
-    #072652 100%
+    rgba(144, 147, 183, 0) 0%,
+    var(--color-dark) 100%
   );
   border-bottom-right-radius: 40px;
   border-bottom-left-radius: 40px;
@@ -29,12 +29,12 @@
 }
 
 .properties-header h1 {
-  font-family: 'Tw Cen MT', 'Century Gothic', Arial, sans-serif;
-  font-weight: 400;
+  font-family: var(--font-heading);
+  font-weight: 700;
   font-size: 64px;
   text-align: center;
-  color: #ffffff;
-  text-shadow: 1px 2px 6px #000000b2;
+  color: var(--text-white);
+  text-shadow: 1px 2px 6px rgba(19, 20, 21, 0.6);
   position: relative;
   z-index: 2;
   margin-top: 80px;
@@ -55,10 +55,10 @@
 }
 
 .property-searchbar h1 {
-  font-family: Poppins;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 22px;
-  color: #919191;
+  color: var(--text-secondary);
   margin: 0;
 }
 

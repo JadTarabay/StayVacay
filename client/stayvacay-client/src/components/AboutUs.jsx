@@ -6,6 +6,7 @@ import Property3 from '../assets/services/property3.jpg';
 import Saeed from '../assets/team/Saeed.jpeg';
 import Jad from '../assets/team/Jad.png'
 import Ehab from '../assets/team/Ehab.png';
+import Maher from '../assets/team/Maher.png';
 
 const teamMembers = [
   
@@ -16,17 +17,17 @@ const teamMembers = [
   },
   {
     name: "Maher Serawan",
-    position: "Senior Advisor", // Update if needed
-    image: "/team/maher-serawan.jpg"
+    position: "Admin Manager",
+    image: Maher
   },
   {
     name: "Ehab Shbeb",
-    position: "Operations Manager",
+    position: "Operations",
     image: Ehab
   },
   {
     name: "Jad Tarabay",
-    position: "Sales Admin",
+    position: "Relations & Client Manager",
     image: Jad
   }
 

@@ -13,7 +13,7 @@
 
 .propertyc-header {
   width: 100%;
-  background-color: rgba(7, 38, 82, 0.2);
+  background-color: rgba(12, 13, 159, 0.12);
   border-radius: 15px;
   min-height: 120px;
   display: flex;
@@ -68,8 +68,8 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0,0,0,0.6);
-  color: #ffffff;
+  background-color: rgba(19, 20, 21, 0.6);
+  color: var(--text-white);
   font-size: 1.2rem;
   font-weight: bold;
   display: flex;
@@ -106,18 +106,18 @@
 }
 
 .pd-top h2 {
-  font-family: Poppins;
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-weight: 700;
   font-size: 64px;
-  color: #072652;
+  color: var(--color-primary);
   margin: 0;
 }
 
 .pd-top p {
-  font-family: Poppins;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: 24px;
-  color: #434343;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -141,22 +141,24 @@
 }
 
 .pd-detail p {
-  font-family: Poppins;
+  font-family: var(--font-body);
   font-size: 24px;
-  color: #434343;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .pd-icon {
-  width: 25px;
-  height: 25px;
-  padding: 15px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  background: #adcfff;
-  color: #072652;
+  background: var(--color-accent);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.pd-icon-icon{
+  color: var(--color-primary);
 }
 
 /* =========================
@@ -167,11 +169,12 @@
   width: 75%;
   padding: 20px;
   border-radius: 40px;
-  background: #bbbbbb;
-  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-soft);
   position: relative;
   overflow: hidden;
   transition: max-height 0.6s ease, padding 0.3s ease;
+  gap: 20px;
 }
 
 .d-right.collapsed {
@@ -192,9 +195,9 @@
   height: 50px;
   background: linear-gradient(
     to bottom,
-    rgba(187, 187, 187, 0) 0%,
-    rgba(187, 187, 187, 0.6) 40%,
-    rgba(187, 187, 187, 1) 100%
+    rgba(247, 246, 243, 0) 0%,
+    rgba(247, 246, 243, 0.6) 40%,
+    rgba(247, 246, 243, 1) 100%
   );
   backdrop-filter: blur(6px);
   pointer-events: none;
@@ -207,18 +210,18 @@
   right: 15px;
   padding: 8px 16px;
   border-radius: 999px;
-  background: #072652;
-  color: #ffffff;
+  background: var(--color-primary);
+  color: var(--text-white);
   border: none;
-  font-family: Poppins;
+  font-family: var(--font-button);
   font-size: 14px;
   cursor: pointer;
   z-index: 10;
 }
 
 .toggle-description:hover {
-  background: #adcfff;
-  color: #072652;
+  background: var(--color-accent);
+  color: var(--color-primary);
 }
 
 /* =========================
@@ -226,7 +229,7 @@
 ========================= */
 
 .description-top {
-  background: #072652;
+  background: var(--color-primary);
   padding: 20px;
   margin: -20px -20px 20px;
   border-top-left-radius: 40px;
@@ -235,24 +238,30 @@
 }
 
 .description-top h3 {
-  font-family: Poppins;
+  font-family: var(--font-heading);
   font-size: 32px;
-  color: #ffffff;
+  color: var(--text-white);
   margin: 0;
 }
 
 .d-right h3 {
-  font-family: Poppins;
+  font-family: var(--font-heading);
   font-size: 24px;
-  color: #072652;
+  color: var(--color-primary);
 }
 
 .d-right p {
-  font-family: Poppins;
+  font-family: var(--font-body);
   font-size: 16px;
-  color: #434343;
+  color: var(--text-primary);
+  margin-bottom: 20px;
 }
 
+.info-section h4{
+  font-family: var(--font-heading);
+  color:var(--color-primary);
+  margin-bottom: 10px;  
+}
 /* =========================
    BUBBLES
 ========================= */
@@ -263,14 +272,15 @@
   gap: 10px;
   padding: 0;
   list-style: none;
+  margin-bottom: 20px;
 }
 
 .bubble-item {
   padding: 8px 16px;
-  background: #adcfff;
-  color: #072652;
+  background: var(--color-accent);
+  color: var(--color-primary);
   border-radius: 999px;
-  font-family: Poppins;
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
@@ -289,16 +299,16 @@
   padding: 12px 20px;
   border-radius: 50px;
   border: none;
-  background: #072652;
-  color: #ffffff;
-  font-family: Poppins;
+  background: var(--color-primary);
+  color: var(--text-white);
+  font-family: var(--font-button);
   font-size: 16px;
   cursor: pointer;
 }
 
 .d-book-button button:hover {
-  background: #adcfff;
-  color: #072652;
+  background: var(--color-accent);
+  color: var(--color-primary);
 }
 
 /* =========================
@@ -308,7 +318,7 @@
 .full-view {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(19, 20, 21, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -334,7 +344,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255,255,255,0.6);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--color-primary);
   border: none;
   font-size: 30px;
   padding: 5px 15px;
@@ -409,7 +420,9 @@
   .pd-bottom {
     justify-content: center;
   }
-  .d-right.collapsed,.d-right.expanded{
+
+  .d-right.collapsed,
+  .d-right.expanded {
     width: 90%;
   }
 }

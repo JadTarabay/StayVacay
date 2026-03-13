@@ -23,33 +23,33 @@
 }
 
 .tc-left h2 {
-    font-family: Poppins;
-    font-weight: 400;
+    font-family: var(--font-body);
+    font-weight: 500;
     font-size: 14px;
     letter-spacing: 0%;
-    color: #072652;
+    color: var(--color-primary);
     margin: 0;
 }
 
 .tc-left h1 {
-    font-family: Poppins;
-    font-weight: 500;
+    font-family: var(--font-heading);
+    font-weight: 700;
     font-size: 26px;
     letter-spacing: 0%;
-    color: #434343;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .tc-left span {
-    color: #072652;
+    color: var(--color-primary);
 }
 
 .tc-left p {
-    font-family: Poppins;
+    font-family: var(--font-body);
     font-weight: 400;
     font-size: 14px;
     letter-spacing: 0%;
-    color: #BBBBBB;
+    color: var(--text-secondary);
     margin: 0;
 }
 
@@ -68,20 +68,20 @@
 }
 
 .tcl-bottom-text h3 {
-    font-family: Poppins;
-    font-weight: 400;
+    font-family: var(--font-body);
+    font-weight: 500;
     font-size: 14px;
     letter-spacing: 0%;
-    color: #434343;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .tcl-bottom-text p {
-    font-family: Poppins;
+    font-family: var(--font-body);
     font-weight: 400;
     font-size: 12px;
     letter-spacing: 0%;
-    color: #BBBBBB;
+    color: var(--text-secondary);
     margin: 0;
 }
 

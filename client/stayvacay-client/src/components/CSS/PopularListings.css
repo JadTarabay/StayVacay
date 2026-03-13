@@ -27,30 +27,30 @@
 }
 
 .listing-top h2 {
-  font-family: Poppins;
-  font-weight: 400;
+  font-family: var(--font-body);
+  font-weight: 500;
   font-size: 16px;
-  color: #072652;
+  color: var(--color-primary);
   margin: 0;
 }
 
 .listing-top h1 {
-  font-family: Poppins;
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-weight: 700;
   font-size: 64px;
-  color: #072652;
+  color: var(--color-primary);
   margin: 10px 0;
 }
 
 .listing-top span {
-  color: #434343;
+  color: var(--text-primary);
 }
 
 .listing-top p {
-  font-family: Poppins;
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 16px;
-  color: #000000;
+  color: var(--text-primary);
   max-width: 700px;
 }
 
@@ -89,7 +89,7 @@
 
 .button-left:hover,
 .button-right:hover {
-  background: #adcfff;
+  background: var(--color-accent);
 }
 
 .button-left:disabled,
@@ -101,7 +101,7 @@
 .nav-card-icon {
   width: 50px;
   height: 50px;
-  color: #072652;
+  color: var(--color-primary);
 }
 
 /* =========================
@@ -151,22 +151,22 @@
 }
 
 .view-properties-button button {
-  background: #072652;
-  color: #ffffff;
+  background: var(--color-primary);
+  color: var(--text-white);
   border: none;
   border-radius: 40px;
   padding: 15px 22px;
   margin-top: 20px;
-  font-family: Poppins;
+  font-family: var(--font-button);
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .view-properties-button button:hover {
-  background: #adcfff;
-  color: #072652;
+  background: var(--color-accent);
+  color: var(--color-primary);
 }
 
 /* =========================
@@ -191,21 +191,21 @@
 }
 
 .pg-top h2 {
-  font-family: Poppins;
+  font-family: var(--font-body);
   font-size: 16px;
-  color: #072652;
+  color: var(--color-primary);
   margin: 10px 0;
 }
 
 .pg-top h1 {
-  font-family: Poppins;
+  font-family: var(--font-heading);
   font-size: 55px;
-  color: #434343;
+  color: var(--text-primary);
   margin: 10px 0;
 }
 
 .pg-top span {
-  color: #072652;
+  color: var(--color-primary);
 }
 
 /* =========================
@@ -262,6 +262,7 @@
   border-radius: 40px;
   object-fit: cover;
 }
+
 /* =========================
    TABLET (≤ 768px)
 ========================= */
@@ -301,7 +302,7 @@
   }
 
   .pg-right-top {
-    grid-template-columns: 1fr 1fr; /* keep 2 on top if you want */
+    grid-template-columns: 1fr 1fr;
   }
 
   .pg-left,
@@ -310,15 +311,15 @@
   }
 
   .pg-left img {
-    height: 300px; /* optional */
+    height: 300px;
   }
 
   .pg-right-top img {
-    height: 160px; /* optional */
+    height: 160px;
   }
 
   .pg-right-down img {
-    height: 220px; /* optional */
+    height: 220px;
   }
 }
 

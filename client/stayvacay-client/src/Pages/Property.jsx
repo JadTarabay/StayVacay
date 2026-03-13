@@ -94,22 +94,30 @@ const Property = () => {
           <div className="pd-bottom">
             <div className="pd-bottom-left">
               <div className="pd-detail">
-                <FaLocationDot className='pd-icon' />
+                <div className="pd-icon">
+                  <FaLocationDot className='pd-icon-icon' />
+                </div>               
                 <p>{property.location}</p>
               </div>
 
               <div className="pd-detail">
-                <IoBedOutline className='pd-icon' />
+                <div className="pd-icon">
+                  <IoBedOutline className='pd-icon-icon' />
+                </div>  
                 <p>Bedrooms: {property.bedrooms}</p>
               </div>
 
               <div className="pd-detail">
-                <MdBathtub className='pd-icon' />
+                <div className="pd-icon">
+                  <MdBathtub className='pd-icon-icon' />
+                </div>
                 <p>Bathrooms: {property.bathrooms}</p>
               </div>
 
               <div className="pd-detail">
-                <MdOutlineWidthWide className='pd-icon' />
+                <div className="pd-icon">
+                  <MdOutlineWidthWide className='pd-icon-icon' />
+                </div>
                 <p>Size: {property.size} sqm</p>
               </div>
               <div className="d-book-button">
