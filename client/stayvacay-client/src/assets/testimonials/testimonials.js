@@ -7,7 +7,7 @@ import User1 from './user.png';
 const testimonials = [
   {
     id: 1,
-    name: 'John Doe',
+    name: 'John Bradford',
     country: 'Traveler From UK',
     image: User1,
     feedback:
@@ -31,11 +31,11 @@ const testimonials = [
   },
   {
     id: 4,
-    name: 'Jad Taraby',
-    country: 'Traveler From Lebanon',
+    name: 'Lynn Hernandez',
+    country: 'Traveler From Cuba',
     image: User1,
     feedback:
-      '“I am in love.”',
+      '“Customer service is amazing, my family and I had a wonderful stay and we felt at home!”',
   },
 ];
 
